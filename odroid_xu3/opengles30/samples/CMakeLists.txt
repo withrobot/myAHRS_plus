@@ -1,0 +1,2 @@
+add_subdirectory(opengles_20)
+add_subdirectory(opengles_30)

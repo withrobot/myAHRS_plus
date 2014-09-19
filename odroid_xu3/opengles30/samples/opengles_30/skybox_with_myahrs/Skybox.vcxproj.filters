@@ -1,0 +1,107 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;ppm;raw;vert;frag</Extensions>
+    </Filter>
+  </ItemGroup>  
+  <ItemGroup>
+    <ClCompile Include="Skybox.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Quaternions.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Text.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Shader.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Matrix.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="WindowsPlatform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Platform.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+  </ItemGroup>  
+  <ItemGroup>
+    <ClInclude Include="Quaternions.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Image.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="EGLRuntime.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Matrix.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Platform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Shader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Text.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="WindowsPlatform.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>  
+  <ItemGroup>
+    <None Include="assets/shader.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets/shader.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets/greenhouse_skybox-0.ppm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets/greenhouse_skybox-1.ppm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets/greenhouse_skybox-2.ppm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets/greenhouse_skybox-3.ppm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets/greenhouse_skybox-4.ppm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets/greenhouse_skybox-5.ppm">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets/font.frag">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets/font.vert">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets/font.raw">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="assets/font.png">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+</Project>
