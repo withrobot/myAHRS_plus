@@ -20,7 +20,7 @@ Performance comparison between myAHRS+ and Razor 9 axis IMU.
 
 ## Tutorial
 
-Detailed description is [here](https://github.com/myahrsplus/myahrs_plus_examples/tree/master/tutorial).
+Detailed description is [here](tutorial).
 
 
 ## Examples
