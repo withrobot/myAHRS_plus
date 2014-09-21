@@ -15,7 +15,7 @@ Download source tree from github.
 
 ```
 $ cd YOUR_WORKING_DIRECTORY
-$ svn export https://github.com/myahrsplus/myahrs_plus_examples/trunk/common_cpp
+$ svn export https://github.com/withrobot/myAHRS_plus/trunk/common_cpp
 ```
 
 Build.
