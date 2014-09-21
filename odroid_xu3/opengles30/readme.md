@@ -17,7 +17,7 @@ Download source tree from github.
 
 ```
 $ cd YOUR_WORKING_DIRECTORY
-$ svn export https://github.com/myahrsplus/myahrs_plus_examples/trunk/odroid_xu3
+$ svn export https://github.com/withrobot/myAHRS_plus/trunk/odroid_xu3
 ```
 
 Build all examples.
