@@ -31,9 +31,9 @@
  *  2014.08.02 ('c')void
  *      ver. 1.0
  *  2014.08.14 ('c')void
- *      version string Ãß°¡
+ *      version string ì¶”ê°€
  *  2014.08.15 ('c')void
- *      Åë½Å ÀÌ¿ÜÀÇ ¸ğµç ½Ç¼öÇüÀº double
+ *      í†µì‹  ì´ì™¸ì˜ ëª¨ë“  ì‹¤ìˆ˜í˜•ì€ double
  *  2014.08.27 ('c')void
  *  2014.09.09 ('c')void
  *
@@ -67,6 +67,7 @@
     #define _AFXDLL
     #include <afx.h>
     #include <windows.h>
+    #include <cctype>
 
     #pragma warning( disable : 4996 ) // sprintf
     #pragma warning( disable : 4355 ) // warning C4355: 'this' : used in base member initializer list
@@ -265,7 +266,7 @@ namespace WithRobot {
                          return dwBytesWritten;
                       }
                       else {
-                         // Write is pending... ¿©±â·Î ºüÁú¸®´Â ¾øÁö¸¸¼­µµ...
+                         // Write is pending... ì—¬ê¸°ë¡œ ë¹ ì§ˆë¦¬ëŠ” ì—†ì§€ë§Œì„œë„...
                          //Sleep(10);
                          // retry;
                          return dwBytesWritten;
