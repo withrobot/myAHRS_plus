@@ -35,7 +35,7 @@ Requirements
 
 Download source tree from github. 
 
-And open the workspace file(YOUR_WORKING_DIRECTORY\common_cpp\windows_example\windows_example.sln) in Visual Studio.
+And open the solution file(YOUR_WORKING_DIRECTORY\common_cpp\windows_example\windows_example.sln) in Visual Studio.
 
 ## How to run
 
