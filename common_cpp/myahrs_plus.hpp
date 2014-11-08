@@ -409,8 +409,8 @@ namespace WithRobot {
                 }
 
                 fd = open(port_name.c_str(), O_RDWR | O_NOCTTY | O_NDELAY);
-                if (fd == -1) {
-                    return fd;
+                if(fd < 0) {
+                    return false;
                 }
 
                 fcntl(fd, F_SETFL, 0);   // clear all flags on descriptor, enable direct I/O
