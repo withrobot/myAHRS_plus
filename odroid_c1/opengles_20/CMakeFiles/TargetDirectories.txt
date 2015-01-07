@@ -1,0 +1,3 @@
+/home/odroid/work/odroid_c1/samples/opengles_20/cube_with_myahrs/CMakeFiles/cube_myahrs.dir
+/home/odroid/work/odroid_c1/simple_framework/CMakeFiles/simple_framework2.dir
+/home/odroid/work/odroid_c1/simple_framework/CMakeFiles/simple_framework3.dir

@@ -1,0 +1,1 @@
+/usr/bin/c++   -std=c++11    CMakeFiles/cube_myahrs.dir/Cube_with_myahrs.cpp.o  -o cube_myahrs  -L/usr/lib/arm-linux-gnueabihf/mali-egl -rdynamic ../../../simple_framework/libsimple_framework2.a -lEGL -lGLESv2 -lX11 -lm -lpthread 
