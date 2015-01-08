@@ -10,9 +10,9 @@ The GUI(myAHRS+ Monitor) is available, which allows users configure all myAHRS+ 
 ## Features
 
 * Sensors
-  * Triple axis 16-bit gyroscope : �� 2000 dps
-  * Triple axis 16-bit accelerometer : �� 16 g
-  * Triple axis 13-bit magnetometer  : �� 1200 ��T
+  * Triple axis 16-bit gyroscope : ± 2,000 dps
+  * Triple axis 16-bit accelerometer : ± 16 g
+  * Triple axis 13-bit magnetometer  : ± 1200 μT
 * On board software
   * Exteneded Kalman filter
   * max 100 Hz output rate
