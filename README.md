@@ -17,6 +17,11 @@ Performance comparison between myAHRS+ and Razor 9 axis IMU.
 
 [![ScreenShot](tutorial/images/wiki_image_4_performance_c.png)](http://www.youtube.com/watch?v=5NDU6PcPhBw)
 
+Performance comparison between myAHRS+ and MPU9150 MotionFit.
+
+[![ScreenShot](tutorial/images/wiki_image_4_performance_l_2.png)](http://youtu.be/JtE3BCpq8MA?list=UUr3H8wg38P8b4skZZi_tpYA)
+
+[![ScreenShot](tutorial/images/wiki_image_4_performance_c_2.png)](http://youtu.be/AI0JuWKJFR8?list=UUr3H8wg38P8b4skZZi_tpYA)
 
 ## Tutorial
 
@@ -28,3 +33,4 @@ Detailed description is [here](tutorial).
 * [myAHRS+ SDK](common_cpp).
 * [python](common_python).
 * [odroid XU3](odroid_xu3).
+* [odroid C1](odroid_c1).
