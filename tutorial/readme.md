@@ -10,9 +10,9 @@ The GUI(myAHRS+ Monitor) is available, which allows users configure all myAHRS+ 
 ## Features
 
 * Sensors
-  * Triple axis 16-bit gyroscope : ± 2000 dps
-  * Triple axis 16-bit accelerometer : ± 16 g
-  * Triple axis 13-bit magnetometer  : ± 1200 μT
+  * Triple axis 16-bit gyroscope : �� 2000 dps
+  * Triple axis 16-bit accelerometer : �� 16 g
+  * Triple axis 13-bit magnetometer  : �� 1200 ��T
 * On board software
   * Exteneded Kalman filter
   * max 100 Hz output rate
@@ -34,6 +34,12 @@ Performance comparison between myAHRS+ and Razor 9 axis IMU.
 [![ScreenShot](images/wiki_image_4_performance_l.png)](http://www.youtube.com/watch?v=vg1yE199DGE)
 
 [![ScreenShot](images/wiki_image_4_performance_c.png)](http://www.youtube.com/watch?v=5NDU6PcPhBw)
+
+Performance comparison between myAHRS+ and MPU9150 MotionFit.
+
+[![ScreenShot](images/wiki_image_4_performance_l_2.png)](http://youtu.be/JtE3BCpq8MA?list=UUr3H8wg38P8b4skZZi_tpYA)
+
+[![ScreenShot](images/wiki_image_4_performance_c_2.png)](http://youtu.be/AI0JuWKJFR8?list=UUr3H8wg38P8b4skZZi_tpYA)
 
 
 ## Pin map
