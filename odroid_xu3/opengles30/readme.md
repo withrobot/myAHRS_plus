@@ -34,7 +34,7 @@ It is assumed that your myAHRS+ is connected to /dev/ttyACM0.
 
 ### Cube 
 
-[![ScreenShot](images/cube.png)](http://youtu.be/kSFM3_NDcoQ)
+[![ScreenShot](images/cube.gif)](http://youtu.be/kSFM3_NDcoQ)
 
 This is the simplest example displays the cube that rotates along with the movement of the myAHRS+. 
 You can run this example as follows.
@@ -44,7 +44,7 @@ $ ./samples/opengles_20/cube_with_myahrs/cube_myahrs /dev/ttyACM0
 ```
 
 ### SkyBox 
-[![ScreenShot](images/skybox.png)](http://youtu.be/kSFM3_NDcoQ)
+[![ScreenShot](images/skybox.gif)](http://youtu.be/kSFM3_NDcoQ)
 
 This is a simple head tracking example. You can run this example as follows.
 
@@ -54,7 +54,7 @@ $ ./samples/opengles_30/skybox_with_myahrs/skybox_myahrs /dev/ttyACM0
 
 ### Instancing  
 
-[![ScreenShot](images/instancing.png)](http://youtu.be/tJZoBz_R7Vg)
+[![ScreenShot](images/instancing.gif)](http://youtu.be/tJZoBz_R7Vg)
 
 This is a simple motion capture example. Each cube moves along with the movement of the sensor attached to your finger or back of the hand. In order to distinguish the respective sensors, a unique ID should be granted for each sensor. With the myAHRS+ monitor, you can change the sensor id of myAHRS+. 
 
@@ -71,6 +71,6 @@ $ ./samples/opengles_30/instancing_with_myahrs/instancing_myahrs /dev/ttyACM0
 If you have more than one myAHRS+, run this example as follows.
 
 ```
-$ ./samples/opengles_30/instancing_with_myahrs/instancing_myahrs /dev/ttyACM0 /dev/ttyACM1 … /dev/ttyACMN
+$ ./samples/opengles_30/instancing_with_myahrs/instancing_myahrs /dev/ttyACM0 /dev/ttyACM1 ��� /dev/ttyACMN
 ```
 
