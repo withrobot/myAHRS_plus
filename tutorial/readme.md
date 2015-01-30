@@ -117,6 +117,10 @@ This video shows the calibration procedure of myAHRS+ using myAHRS+ Monitor.
 [![ScreenShot](images/wiki_imge_4_calibration.png)](http://www.youtube.com/watch?v=dX0QgiJZKYs)
 
 
+# I2C Interface 
+
+# UART Protocol 
+
 # Examples
 
 Some useful examples for using the myAHRS+ are available for various platforms.
