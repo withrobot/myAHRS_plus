@@ -125,3 +125,7 @@ Some useful examples for using the myAHRS+ are available for various platforms.
 * [python](../common_python).
 * [odroid XU3](../odroid_xu3).
 * [odroid C1](../odroid_c1).
+* I2C Examples
+ * myCortex-STM32F4
+* UART Examples
+ 
