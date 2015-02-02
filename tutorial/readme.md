@@ -231,7 +231,7 @@ QUATERNION_W_HIGH | R | 0x43 | DATA | Quaternion
  * Quaternion = X(Y, Z, W) / 32767
 
 
-</ref># UART Protocol 
+# UART Protocol </ref>
 
 # Examples
 
