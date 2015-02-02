@@ -117,6 +117,28 @@ This video shows the calibration procedure of myAHRS+ using myAHRS+ Monitor.
 [![ScreenShot](images/wiki_imge_4_calibration.png)](http://www.youtube.com/watch?v=dX0QgiJZKYs)
 
 
+# I2C Interface 
+
+###1. I2C Interface
+
+The myAHRS+ operates as I2C slave and the I2C bus requires the pull-up register.<br/>
+Normally 4.7kΩ register is used but 1kΩ ~ 10kΩ register can be used depends on the situation.
+
+
+![ScreenShot](images/wiki_image_5_I2C_circuit.JPG)
+
+
+The I2C port operates in 3.3V voltage level and can be used directly with a MCU with 5V IO without an extra circuit.<br/>
+* I2C Slave address: 7bit, 0x20
+* Data bit: 8bit
+* I2C clock speed: Normal mode(100KHz), Fast mode(400KHz)
+
+I2C interface of the myAHRS+ supports four sequences shown below.
+
+
+![ScreenShot](images/wiki_image_5_I2C_sequence.JPG)
+
+
 ###2. I2C Register description
 
 Register Name | Attributes | Address | Dafault value | Description
@@ -222,5 +244,4 @@ Some useful examples for using the myAHRS+ are available for various platforms.
 * I2C Examples
  * [myCortex-STM32F4](https://github.com/withrobot/myCortex-STM32F4/tree/master/ex09.4_I2C_myAHRS%2B).
 * UART Examples
- 
  
