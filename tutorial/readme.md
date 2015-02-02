@@ -119,6 +119,118 @@ This video shows the calibration procedure of myAHRS+ using myAHRS+ Monitor.
 
 # I2C Interface 
 
+###1. I2C Interface
+
+The myAHRS+ operates as I2C slave and the I2C bus requires the pull-up register.<br/>
+Normally 4.7kΩ register is used but 1kΩ ~ 10kΩ register can be used depends on the situation.
+
+
+![ScreenShot](images/wiki_image_5_I2C_circuit.JPG)
+
+
+The I2C port operates in 3.3V voltage level and can be used directly with a MCU with 5V IO without an extra circuit.<br/>
+* I2C Slave address: 7bit, 0x20
+* Data bit: 8bit
+* I2C clock speed: Normal mode(100KHz), Fast mode(400KHz)
+
+I2C interface of the myAHRS+ supports four sequences shown below.
+
+
+![ScreenShot](images/wiki_image_5_I2C_sequence.JPG)
+
+
+###2. I2C Register description
+
+Register Name | Attributes | Address | Dafault value | Description
+------|------|------|---------- | ----------------
+WHO_AM_I | R | 0x01 | 0xB1 | Sensor status
+REV_ID_MAJOR | R | 0x02 | - | -
+REV_ID_MINOR | R | 0x03 | - | -
+STATUS | R |  0x04  | 0x80 | - 
+I_ACC_X_LOW | R | 0x10 | DATA | Acceleration raw data
+I_ACC_X_HIGH | R | 0x11 | DATA | Acceleration raw data
+I_ACC_Y_LOW | R | 0x12 | DATA | Acceleration raw data
+I_ACC_Y_HIGH | R | 0x13 | DATA | Acceleration raw data
+I_ACC_Z_LOW | R | 0x14 | DATA | Acceleration raw data
+I_ACC_Z_HIGH | R | 0x15 | DATA | Acceleration raw data
+I_GYRO_X_LOW | R | 0x16 | DATA | Gyroscope raw data
+I_GYRO_X_HIGH | R | 0x17 | DATA | Gyroscope raw data
+I_GYRO_Y_LOW | R | 0x18 | DATA | Gyroscope raw data
+I_GYRO_Y_HIGH | R | 0x19 | DATA | Gyroscope raw data
+I_GYRO_Z_LOW | R | 0x1A | DATA | Gyroscope raw data
+I_GYRO_Z_HIGH | R | 0x1B | DATA | Gyroscope raw data
+I_MAGNET_X_LOW | R | 0x1C | DATA | Magnetometer raw data
+I_MAGNET_X_HIGH | R | 0x1D | DATA | Magnetometer raw data
+I_MAGNET_Y_LOW | R | 0x1E | DATA | Magnetometer raw data
+I_MAGNET_Y_HIGH | R | 0x1F | DATA | Magnetometer raw data
+I_MAGNET_Z_LOW | R | 0x20 | DATA | Magnetometer raw data
+I_MAGNET_Z_HIGH | R | 0x21 | DATA | Magnetometer raw data
+C_ACC_X_LOW | R | 0x22 | DATA | Calibrated acceleration data
+C_ACC_X_HIGH | R | 0x23 | DATA | Calibrated acceleration data
+C_ACC_Y_LOW | R | 0x24 | DATA | Calibrated acceleration data
+C_ACC_Y_HIGH | R | 0x25 | DATA | Calibrated acceleration data
+C_ACC_Z_LOW | R | 0x26 | DATA | Calibrated acceleration data
+C_ACC_Z_HIGH | R | 0x27 | DATA | Calibrated acceleration data
+C_GYRO_X_LOW | R | 0x28 | DATA | Calibrated gyroscope data
+C_GYRO_X_HIGH | R | 0x29 | DATA | Calibrated gyroscope data
+C_GYRO_Y_LOW | R | 0x2A | DATA | Calibrated gyroscope data
+C_GYRO_Y_HIGH | R | 0x2B | DATA | Calibrated gyroscope data
+C_GYRO_Z_LOW | R | 0x2C | DATA | Calibrated gyroscope data
+C_GYRO_Z_HIGH | R | 0x2D | DATA | Calibrated gyroscope data
+C_MAGNET_X_LOW | R | 0x2E | DATA | Calibrated magnetometer data
+C_MAGNET_X_HIGH | R | 0x2F | DATA | Calibrated magnetometer data
+C_MAGNET_Y_LOW | R | 0x30 | DATA | Calibrated magnetometer data
+C_MAGNET_Y_HIGH | R | 0x31 | DATA | Calibrated magnetometer data
+C_MAGNET_Z_LOW | R | 0x32 | DATA | Calibrated magnetometer data
+C_MAGNET_Z_HIGH | R | 0x33 | DATA | Calibrated magnetometer data
+TEMPERATURE_LOW | R | 0x34 | DATA | Temperature data
+TEMPERATURE_HIGH | R | 0x35 | DATA | Temperature data
+ROLL_LOW | R | 0x36 | DATA | Euler angle
+ROLL_HIGH | R | 0x37 | DATA | Euler angle
+PITCH_LOW | R | 0x38 | DATA | Euler angle
+PITCH_HIGH | R | 0x39 | DATA | Euler angle
+YAW_LOW | R | 0x3A | DATA | Euler angle
+YAW_HIGH | R | 0x3B | DATA | Euler angle
+QUATERNION_X_LOW | R | 0x3C | DATA | Quaternion
+QUATERNION_X_HIGH | R | 0x3D | DATA | Quaternion
+QUATERNION_Y_LOW | R | 0x3E | DATA | Quaternion
+QUATERNION_Y_HIGH | R | 0x3F | DATA | Quaternion
+QUATERNION_Z_LOW | R | 0x40 | DATA | Quaternion
+QUATERNION_Z_HIGH | R | 0x41 | DATA | Quaternion
+QUATERNION_W_LOW | R | 0x42 | DATA | Quaternion
+QUATERNION_W_HIGH | R | 0x43 | DATA | Quaternion
+
+###3. Data transform formula
+
+* I_ACC_X_LOW ~ I_MAGNET_Z_HIGH
+ * These registers store the sensor output value that is not compensated by the calibration parameter. Lower 8bit is saved in a LOW register and higher 8bit register is saved in a HIGH register. Since the value is originally Integer, there is no need to convert it into a Real number.
+
+* C_ACC_X_LOW ~ C_ACC_Z_HIGH
+ * These registers store the acceleration output value (signed 16bit) that is compensated by the calibration parameter. Lower 8bit is saved in a LOW register and higher 8bit register is saved in a HIGH register. Multiplying a scale factor (16 / 32767) converts the unit of acceleration value into the (g) unit.
+ * Acceleration(g) = C_ACC × 16 / 32767
+
+* C_GYRO_X_LOW ~ C_ GYRO _Z_HIGH
+ * These registers store the gyroscope output value (signed 16bit) that is compensated by the calibration parameter. Lower 8bit is saved in a LOW register and higher 8bit register is saved in a HIGH register. Multiplying a scale factor (2000 / 32767) converts the unit of gyroscope value into the (dps / degree per second) unit.
+ * Gyroscope(dps) = C_GYRO × 2000 / 32767
+
+* C_MAGNET_X_LOW ~ C_ MAGNET _Z_HIGH
+ * These registers store the magnetometer output value (signed 16bit) that is compensated by the calibration parameter. Lower 8bit is saved in a LOW register and higher 8bit register is saved in a HIGH register. The output value of a calibrated magnetometer sensor is not required to convert into a Real number, because there is no physical unit.
+ * If you need magnetic field measurement, multiply the scale factor 0.3 to not-calibrated magnetometer output (I_MAGNET_X_LOW ~ I_MAGNET_Z_HIGH) then you can get the magnetic field measurement in uT.
+ * Magnetometer(uT) = I_MAGNET × 0.3
+
+* TEMPERATURE_LOW ~ TEMPERATURE_HIGH
+ * These registers store the temperature output value (signed 16bit). Lower 8bit is saved in a LOW register and higher 8bit register is saved in a HIGH register. Multiplying a scale factor (200 / 32767) converts the unit of the temperature value into the (℃) unit.
+ * Temperature(℃) = TEMPERATURE_N × 200 / 32767
+
+* ROLL_LOW ~ YAW_HIGH
+ * These registers store the Euler angle output value (signed 16bit). Lower 8bit is saved in a LOW register and higher 8bit register is saved in a HIGH register. Multiplying a scale factor (180 / 32767) converts the unit of the angle value into the (°) unit.
+ * Euler angle(°) = ROLL(PITCH, YAW) × 180 / 32767
+
+* QUATERNION_X_LOW ~ QUATERNION_W_HIGH
+ * These registers store the quaternion output value (signed 16bit). Lower 8bit is saved in a LOW register and higher 8bit register is saved in a HIGH register. Multiplying a scale factor (1 / 32767) converts the value into the Real number.
+ * Quaternion = X(Y, Z, W) / 32767
+
+
 # UART Protocol 
 
 # Examples
@@ -130,6 +242,6 @@ Some useful examples for using the myAHRS+ are available for various platforms.
 * [odroid XU3](../odroid_xu3).
 * [odroid C1](../odroid_c1).
 * I2C Examples
- * myCortex-STM32F4
+ * [myCortex-STM32F4](https://github.com/withrobot/myCortex-STM32F4/tree/master/ex09.4_I2C_myAHRS%2B).
 * UART Examples
  
