@@ -121,8 +121,8 @@ This video shows the calibration procedure of myAHRS+ using myAHRS+ Monitor.
 
 ###1. I2C Interface
 
-The myAHRS+ operates as I2C slave and the I2C bus requires the pull-up register.<br/>
-Normally 4.7kΩ register is used but 1kΩ ~ 10kΩ register can be used depends on the situation.
+The myAHRS+ operates as I2C slave and the I2C bus requires the pull-up resistor.<br/>
+Normally 4.7kΩ resistor is used but 1kΩ ~ 10kΩ resistor can be used depends on the situation.
 
 
 ![ScreenShot](images/wiki_image_5_I2C_circuit.JPG)
