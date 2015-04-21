@@ -238,11 +238,12 @@ This will help you getting the sensor data and changing the settings.
 
 ###1. Message frame definition
 myAHRS+ message format
-Header | Function |
-------|------|
-@,~,$ | Start of Communication Frame |
-\r\n | End of Communication Frame |
-* | CRC delimeter |
+
+Header | Function
+------|------
+@,~,$ | Start of Communication Frame
+\r\n | End of Communication Frame
+* | CRC delimeter
 
 
 
