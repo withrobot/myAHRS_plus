@@ -236,6 +236,10 @@ QUATERNION_W_HIGH | R | 0x43 | DATA | Quaternion
 Describes the details of various messages used for communicating with myAHRS+ using serial port (USB/UART).<br/>
 This will help you getting the sensor data and changing the settings.
 
+###1. Message frame definition
+
+
+
 # Examples
 
 Some useful examples for using the myAHRS+ are available for various platforms.
