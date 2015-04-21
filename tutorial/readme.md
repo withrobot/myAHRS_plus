@@ -233,7 +233,8 @@ QUATERNION_W_HIGH | R | 0x43 | DATA | Quaternion
 
 # UART Protocol
 
-will be updated...
+Describes the details of various messages used for communicating with myAHRS+ using serial port (USB/UART).
+This will help you getting the sensor data and changing the settings.
 
 # Examples
 
