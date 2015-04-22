@@ -283,6 +283,8 @@ Example of command & response
 ###2. Command & Response Message Details
 For the convenience of explanation, CRC field (“*XX”) and frame end (\r\n) are omitted in command examples.
 
+#####2.1 Firmware version
+
 
 # Examples
 
