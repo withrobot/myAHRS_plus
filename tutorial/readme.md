@@ -317,7 +317,7 @@ Available sensor ID range is 0~65535 and when the command executes without the p
 | ------|------ |
 | id | sensor ID |
 
-#####2.3 Sensor Sensitivity
+#####2.4 Sensor Sensitivity
 The measuring range and sensitivity output of Accelerometer/Gyro Sensor.
 * Request: @sensitivity
 * Response: ~sensitivity,OK,acc range=16,gyro range=2000,acc sensitivity=4.882813e-04,gyro sensitivity=6.097561e-02
@@ -330,13 +330,23 @@ The measuring range and sensitivity output of Accelerometer/Gyro Sensor.
 | acc_sensitivity | Accelerometer sensitivity (g/LSB) |
 | gyro_sensitivity | Gyroscope sensitivity (dps/LSB) |
 
+#####2.5 Data Output Mode
+Select output mode for sensor message format and output type.
+* ‘A’: Set ASCII format for data message
+* ‘B’: Set BINARY format for data message
+* ‘C’: Continuous mode. Continuous output according to the user specified output rate
+* ‘T’: Trigger mode. Output according to the user request<br/>
+To change the output mode, use the combination of above characters (MODE_STRING).<br/>
+For example, use “AC” to set ASCII format in Continuous mode. Running command without the parameters will display the current settings.<br/>
+If you specify the data message in BINARY form, you may take the difficult in protocol processing implementation. So, if you need to analyze the data message directly not using myAHRS+ SDK, we recommend you ASCII format for the data message in this case.
+* Request: @mode,MODE_STRING
+* Response: ~mode,OK,mode=MODE STRING
+* Attribute
 
-
-
-
-
-
-
+| Attribute name | Description |
+| ------|------ |
+| mode | output mode |
+* Example: ASCII format & Continuous output => @mode,AC
 
 # Examples
 
