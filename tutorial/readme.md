@@ -289,12 +289,12 @@ Requests common information such as the product name, firmware version, sensor s
 * Response: ~version,OK,product=myAHRS+,platform=myAHRS+m3,sn=464432970808430886,ver=1.5,build=Jul 13 2014 22:50:17
 * Attribute<br/>
 | Attribute name | Description |
-------|------
-product | product name
-platform | board information
-sn | sensor serial number
-ver | firmware version
-build | build date
+| ------|------ |
+| product | product name |
+| platform | board information |
+| sn | sensor serial number |
+| ver | firmware version |
+| build | build date |
 
 #####2.2 Sensor Serial Number
 * Request:
