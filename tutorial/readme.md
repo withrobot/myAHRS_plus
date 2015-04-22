@@ -420,8 +420,16 @@ Change calibration parameter for each sensor(acceleration, gyroscope and magneto
  * ‘M’: Magnetometer
 * CALIBRATION PARAMETERS
  * T₁₁, T₁₂, T₁₃, T₂₁, T₂₂, T₂₃, T₃₁, T₃₂, T₃₃, b₁, b₂, b₃
+* Response: ~calib,OK,sensor=SENSOR TYPE,param= CALIBRATION PARAMETERS
+* Attribute
 
+| Attribute name | Description |
+| ------|------ |
+| sensor | sensor type |
+| param | calibration parameter |
+* Example: @calib,A,1.000000e+00,2.000000e+00,3.000000e+00,4.000000e+00,5.000000e+00,6.000000e+00,7.000000e+00,8.000000e+00,9.000000e+00,1.000000e+01,1.100000e+01,1.200000e+01
 
+#####2.11 Change Baud Rate
 
 
 
