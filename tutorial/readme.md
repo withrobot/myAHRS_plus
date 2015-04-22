@@ -460,10 +460,10 @@ Set every setting to default (factory setting) value.
 ###3. Data Message
 #####3.1 ASCII Format Message
 * RIIMU
- * Format: $RIIMU,sequence number,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z,magnet_x,magnet_y,magnet_z,temperature
+ * Format: $RIIMU,sequence number,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z, magnet_x,magnet_y,magnet_z,temperature
  * Example: $RIIMU,27,25,26,-1901,-16,-7,-11,259,-147,55,158
 * IMU
- * Format: $IMU,sequence number,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z,magnet_x,magnet_y,magnet_z,temperature
+ * Format: $IMU,sequence number,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z, magnet_x,magnet_y,magnet_z,temperature
  * Example: $IMU,60,0.0297,0.0019,-1.0056,0.0153,-0.0282,0.3487,129.5813,-110.5982,142.4527,35.5
 * RPY
  * Format: $RPY,sequence number,roll,pitch,yaw
