@@ -355,11 +355,11 @@ Select output data message format (ASCII_FORMAT), when you specify the data mess
 | Message Type | Description |
 | ------|------ |
 | RIIMU | IMU sensor raw data(integer) output |
-| IMU | A corrected IMU sensor output value with the calibration parameter. |
-| RPY | output mode |
-| QUAT | output mode |
-| RPYIMU | output mode |
-| QUATIMU | output mode |
+| IMU | A compensated IMU sensor output value with the calibration parameter |
+| RPY | Sensor attitude output in EULER |
+| QUAT | Sensor attitude output in quaternion |
+| RPYIMU | RPY + IMU |
+| QUATIMU | QUAT + IMU |
 Run command without the parameters will display the current settings. The details for each format will be described in chapter 3 data message.
 * Request: @asc_out,ASCII_FORMAT
 * Response: ~asc_out,OK,fmt=ASCII_FORMAT
@@ -372,13 +372,13 @@ Run command without the parameters will display the current settings. The detail
 
 #####2.7 Data Output format(BINARY) setting
 Select data output when the data output mode is in BINARY format.
+* Attitude
+ * EULER: EULER angle output
+ * QUATERNION: QUATERNION output
+* IMU
+ * RIIMU: Uncompensated sensor value (acceleration, gyroscope, magnetometer, temperature)
+ * IMU: Compensated sensor value (acceleration, gyroscope, magnetometer, temperature)
 
-| Message Type | Description |
-| ------|------ |
-| RIIMU | IMU sensor raw data(integer) output |
-| IMU | A corrected IMU sensor output value with the calibration parameter. |
-| RPY | output mode |
-| QUAT | output mode |
 Specify output entries combine above using BINARY_FORMAT. No ‘,’ in BINARY_FORMAT.<br/>
 If you specify the data message in BINARY form, you may take the difficult in protocol processing implementation. So, if you need to analyze the data message directly not using myAHRS+ SDK, we recommend you ASCII format for the data message in this case.
 * Request: @bin out,BINARY FORMAT
@@ -389,8 +389,8 @@ If you specify the data message in BINARY form, you may take the difficult in pr
 | ------|------ |
 | fmt | Message format name |
 * Example
- * @bin out,EULER RIIMU: display EULER angle and uncorrected sensor value
- * @bin out,IMU: display corrected sensor value only
+ * @bin out,EULER RIIMU: display EULER angle and uncompensated sensor value
+ * @bin out,IMU: display compensated sensor value only
 
 #####2.8 Data Request
 A sensor data request command when the data output mode is in trigger mode. Data message output instead of the command response. Error response will return when it is in continuous mode.
