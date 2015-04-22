@@ -291,11 +291,11 @@ Requests common information such as the product name, firmware version, sensor s
 
 | Attribute name | Description |
 | ------|------ |
-| product | product name |
-| platform | board information |
-| sn | sensor serial number |
-| ver | firmware version |
-| build | build date |
+|| product || product name |
+|| platform || board information |
+|| sn || sensor serial number |
+|| ver || firmware version |
+|| build || build date |
 
 #####2.2 Sensor Serial Number
 * Request:
