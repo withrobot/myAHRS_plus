@@ -307,7 +307,8 @@ Requests common information such as the product name, firmware version, sensor s
 | sn | sensor serial number |
 
 #####2.3 Sensor ID
-
+A sensor ID user can set. When using multiple sensors, using sensor and PC communication port (COM3 for example) as a sensor distinguisher is difficult so, sensor ID is used.<br/>
+Available sensor ID range is 0~65535 and when the command executes without the parameter (ID), the output is the current set ID.
 
 
 
