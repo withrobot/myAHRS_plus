@@ -365,7 +365,7 @@ Run command without the parameters will display the current settings. The detail
 * Response: ~asc_out,OK,fmt=ASCII_FORMAT
 * Attribute
 
-| Message Type | Description |
+| Attribute name | Description |
 | ------|------ |
 | fmt | message format name |
 * Example: To display quaternion & IMU data => @asc_out,QUATIMU
@@ -373,11 +373,24 @@ Run command without the parameters will display the current settings. The detail
 #####2.7 Data Output format(BINARY) setting
 Select data output when the data output mode is in BINARY format.
 
+| Message Type | Description |
+| ------|------ |
+| RIIMU | IMU sensor raw data(integer) output |
+| IMU | A corrected IMU sensor output value with the calibration parameter. |
+| RPY | output mode |
+| QUAT | output mode |
+Specify output entries combine above using BINARY_FORMAT. No ‘,’ in BINARY_FORMAT.<br/>
+If you specify the data message in BINARY form, you may take the difficult in protocol processing implementation. So, if you need to analyze the data message directly not using myAHRS+ SDK, we recommend you ASCII format for the data message in this case.
+* Request: @bin out,BINARY FORMAT
+* Response: ~bin out,OK,fmt=BINARY FORMAT
+* Attribute
 
-
-
-
-
+| Attribute name | Description |
+| ------|------ |
+| fmt | Message format name |
+* Example
+ * @bin out,EULER RIIMU: display EULER angle and uncorrected sensor value
+ * @bin out,IMU: display corrected sensor value only
 
 
 
