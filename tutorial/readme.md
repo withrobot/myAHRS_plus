@@ -278,12 +278,38 @@ CRC is a value expressed in ASCII with ‘exclusive or’ value in bite unit fro
 
 Example of command & response
 * Version request: “@version*3A”
-* Version request: “˜version,OK,product=myAHRS+,platform=myAHRS+m3,sn=464432970808430886,ver=1.6,build=Jul 24 2014 12:07:01*6F”
+* Version request: “~version,OK,product=myAHRS+,platform=myAHRS+m3,sn=464432970808430886,ver=1.6,build=Jul 24 2014 12:07:01*6F”
 
 ###2. Command & Response Message Details
 For the convenience of explanation, CRC field (“*XX”) and frame end (\r\n) are omitted in command examples.
 
-#####2.1 Firmware version
+#####2.1 Firmware Version
+Requests common information such as the product name, firmware version, sensor serial number and so on…
+* Request: @version
+* Response: ~version,OK,product=myAHRS+,platform=myAHRS+m3,sn=464432970808430886,ver=1.5,build=Jul 13 2014 22:50:17
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 # Examples
