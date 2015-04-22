@@ -325,10 +325,10 @@ The measuring range and sensitivity output of Accelerometer/Gyro Sensor.
 
 | Attribute name | Description |
 | ------|------ |
-| acc_range | Accelerometer measuring range (g) |
-| gyro_range | Gyroscope measuring range (dps) |
-| acc_sensitivity | Accelerometer sensitivity (g/LSB) |
-| gyro_sensitivity | Gyroscope sensitivity (dps/LSB) |
+| acc_range | Accelerometer measuring range(g) |
+| gyro_range | Gyroscope measuring range(dps) |
+| acc_sensitivity | Accelerometer sensitivity(g/LSB) |
+| gyro_sensitivity | Gyroscope sensitivity(dps/LSB) |
 
 #####2.5 Data Output Mode
 Select output mode for sensor message format and output type.
@@ -348,6 +348,55 @@ If you specify the data message in BINARY form, you may take the difficult in pr
 | ------|------ |
 | mode | output mode |
 * Example: ASCII format & Continuous output => @mode,AC
+
+#####2.6 Data Output format(ASCII) setting
+Select output data message format (ASCII_FORMAT), when you specify the data message output mode in ASCII format. Supported message formats are listed below.
+
+| Attribute name | Description |
+| mode | output mode |
+| mode | output mode |
+| mode | output mode |
+| mode | output mode |
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # Examples
 
