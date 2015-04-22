@@ -245,7 +245,7 @@ Header | Function
 \r\n | End of Communication Frame
 * | CRC delimeter
 
-
+Request message
 
 # Examples
 
