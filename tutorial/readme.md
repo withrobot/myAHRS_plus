@@ -392,18 +392,34 @@ If you specify the data message in BINARY form, you may take the difficult in pr
  * @bin out,EULER RIIMU: display EULER angle and uncorrected sensor value
  * @bin out,IMU: display corrected sensor value only
 
+#####2.8 Data Request
+A sensor data request command when the data output mode is in trigger mode. Data message output instead of the command response. Error response will return when it is in continuous mode.
+* Request: @trig
+* Response: None
 
+#####2.9 Data Output Rate Setting
+Data output rate setting when the data message output mode is in continuous mode.<br/>
+Output rate will be determined by dividing the sensor maximum output frequency with the user input divider. Let’s say the maximum output frequency is 100 Hz and the divider is 5, the data output frequency is 20 Hz. For the response for this command, the user input divider and the maximum output frequency will be displayed.<br/>
+Run command without the parameters, current settings will be displayed.
+* Request: @divider,DIVIDER
+* Response: ~divider,OK,divider=DIVIDER,max rate=100
+* Attribute
 
+| Attribute name | Description |
+| ------|------ |
+| divider | divider value |
+| max_rate | maximum output frequency |
+* Example: set divider 1 => @divider,1
 
-
-
-
-
-
-
-
-
-
+#####2.10 Change Sensor Calibration Parameter
+Change calibration parameter for each sensor(acceleration, gyroscope and magnetometer). Current settings will be displayed without the CALIBRATION_PARAMETERS.
+* Request: @calib, SENSOR TYPE, CALIBRATION PARAMETERS
+* SENSOR_TYPE
+ * ‘A’: Accelerometer
+ * ‘G’: Gyroscope
+ * ‘M’: Magnetometer
+* CALIBRATION PARAMETERS
+ * T₁₁, T₁₂, T₁₃, T₂₁, T₂₂, T₂₃, T₃₁, T₃₂, T₃₃, b₁, b₂, b₃
 
 
 
