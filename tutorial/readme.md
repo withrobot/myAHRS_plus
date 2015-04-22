@@ -430,6 +430,50 @@ Change calibration parameter for each sensor(acceleration, gyroscope and magneto
 * Example: @calib,A,1.000000e+00,2.000000e+00,3.000000e+00,4.000000e+00,5.000000e+00,6.000000e+00,7.000000e+00,8.000000e+00,9.000000e+00,1.000000e+01,1.100000e+01,1.200000e+01
 
 #####2.11 Change Baud Rate
+Change UART interface baud-rate. myAHRS+ supports the baud-rates listed below.
+* 9600, 14400, 19200, 38400, 57600, 115200, 230400, 460800
+When it receives the baud-rate change command, it sends the response and changes the baud-rate to the user specified value. Run command without the parameters will display the current settings.
+* Request: @baudrate,BAUDRATE
+* Response: ~baudrate,OK,baudrate=BAUDRATE
+* Attribute
+
+| Attribute name | Description |
+| ------|------ |
+| baudrate | Baudrate |
+* Example: Set baud-rate 115200 bps => @baudrate,115200
+
+#####2.12 Save User Setting
+NVRAM storable user settings are listed below.
+* Sensor ID
+* UART Baudrate
+* Calibration parameter
+* User coordinate<br/>
+Other than listed above settings will not be saved in NVRAM, so you need to set them every time when the sensor initializes.
+* Request: @save
+* Response: ~save,OK
+
+#####2.13 Factory Setting
+Set every setting to default (factory setting) value.
+* Request: @factory
+* Response: ~factory,OK
+
+###3. Data Message
+#####3.1 ASCII Format Message
+
+| Attribute name | Description |
+| ------|------ |
+| baudrate | Baudrate |
+
+#####3.2 BINARY Format Message
+If you specify the data message in BINARY form, you may take the difficult in protocol processing implementation.<br/>
+So, if you need to analyze the data message directly not using myAHRS+ SDK, we recommend you ASCII format for the data message in this case.<br/>
+With myAHRS+ SDK, user does not need to implement sensor data message interpretation, we omit the details on this in user’s guide.
+
+
+
+
+
+
 
 
 
