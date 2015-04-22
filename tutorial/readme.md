@@ -462,13 +462,21 @@ Set every setting to default (factory setting) value.
 * RIIMU
  * Format: $RIIMU,sequence number,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z,magnet_x,magnet_y,magnet_z,temperature
  * Example: $RIIMU,27,25,26,-1901,-16,-7,-11,259,-147,55,158
-* RIIMU
- * Format: $RIIMU,sequence number,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z,magnet_x,magnet_y,magnet_z,temperature
- * Example: $RIIMU,27,25,26,-1901,-16,-7,-11,259,-147,55,158
-
-
-
-
+* IMU
+ * Format: $IMU,sequence number,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z,magnet_x,magnet_y,magnet_z,temperature
+ * Example: $IMU,60,0.0297,0.0019,-1.0056,0.0153,-0.0282,0.3487,129.5813,-110.5982,142.4527,35.5
+* RPY
+ * Format: $RPY,sequence number,roll,pitch,yaw
+ * Example: $RPY,68,0.04,1.56,34.22
+* QUAT
+ * Format: $QUAT,sequence number,x,y,z,w
+ * Example: $QUAT,55,-0.0037,0.0134,0.2932,0.9560
+* RPYIMU
+ * Format: $RPYIMU,sequence number,roll,pitch,yaw,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z,magnet_x,magnet_y,magnet_z,temperature
+ * Example: $RPYIMU,82,0.04,1.67,34.07,0.0307,0.0014,-1.0095,-0.0435,0.0919,0.1660,137.2258,-90.1564,134.8918,35.6
+* QUATIMU
+ * Format: $QUATIMU,sequence number,x,y,z,w,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z,magnet_x,magnet_y,magnet_z,temperature
+ * Example: $QUATIMU,02,-0.0039,0.0135,0.2940,0.9557,0.0238,0.0034,-0.9978,-0.0448,-0.0896,0.2866,136.5006,-86.5058,134.0961,35.8
 
 #####3.2 BINARY Format Message
 If you specify the data message in BINARY form, you may take the difficult in protocol processing implementation.<br/>
