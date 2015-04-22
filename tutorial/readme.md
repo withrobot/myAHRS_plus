@@ -266,7 +266,19 @@ Request message is a user command transferred to the sensor which starts with �
  * The parameters of the Response message are the attributes. ‘attribute name’=’attribute value’.
 * When it is not possible to execute command with such as a CRC error, the output will be an error message.
 
+The Data message is a message with various data including sensor attitude, transfers regardless of Request & Response messages.
+* Output based on user setting output rate when in Continuous Mode.
+* Output based on user request when in Trigger Mode.
 
+The details of Data message will be described in Section 3 Data Message.
+Above body of all messages consisted of M fields delimited with delimit character (,).
+CRC is a value expressed in ASCII with ‘exclusive or’ value in bite unit from the frame starting point to the end of the body.
+* For example, if the CRC value is 0x1A, the expression is “1A”.
+* There should be no space or blank between the CRC value and ‘*’.
+
+Example of command & response
+* Version request: "@version*3A"
+* Version request: "˜version,OK,product=myAHRS+,platform=myAHRS+ m3,sn=464432970808430886,ver=1.6,build=Jul 24 2014 12:07:01*6F"
 
 
 
