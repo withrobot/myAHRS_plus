@@ -246,6 +246,13 @@ Header | Function
 * | CRC delimeter
 
 Request message
+* A message from the Host(PC) to the sensor
+* [@][ body(N byte) ][*][ CRC(2byte) ][\r\n]
+Response Message
+* A message from the sensor to the Host(PC) Request message
+Data Message
+* Supports ASCII and BINARY formats
+* A message independent of Response message for Request message, sent to the Host which includes various sensor data
 
 # Examples
 
