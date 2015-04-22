@@ -361,13 +361,17 @@ Select output data message format (ASCII_FORMAT), when you specify the data mess
 | RPYIMU | output mode |
 | QUATIMU | output mode |
 Run command without the parameters will display the current settings. The details for each format will be described in chapter 3 data message.
+* Request: @asc_out,ASCII_FORMAT
+* Response: ~asc_out,OK,fmt=ASCII_FORMAT
+* Attribute
 
+| Message Type | Description |
+| ------|------ |
+| fmt | message format name |
+* Example: To display quaternion & IMU data => @asc_out,QUATIMU
 
-
-
-
-
-
+#####2.7 Data Output format(BINARY) setting
+Select data output when the data output mode is in BINARY format.
 
 
 
