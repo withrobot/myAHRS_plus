@@ -352,17 +352,14 @@ If you specify the data message in BINARY form, you may take the difficult in pr
 #####2.6 Data Output format(ASCII) setting
 Select output data message format (ASCII_FORMAT), when you specify the data message output mode in ASCII format. Supported message formats are listed below.
 
- Attribute name | Description 
- ------|------ 
- mode | output mode 
- mode | output mode 
- mode | output mode 
- mode | output mode 
-
-
-
-
-
+| Message Type | Description |
+| ------|------ |
+| RIIMU | IMU sensor raw data(integer) output |
+| IMU | A corrected IMU sensor output value with the calibration parameter. |
+| RPY | output mode |
+| QUAT | output mode |
+| RPYIMU | output mode |
+| QUATIMU | output mode |
 
 
 
