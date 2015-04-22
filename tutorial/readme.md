@@ -360,7 +360,7 @@ Select output data message format (ASCII_FORMAT), when you specify the data mess
 | QUAT | output mode |
 | RPYIMU | output mode |
 | QUATIMU | output mode |
-
+Run command without the parameters will display the current settings. The details for each format will be described in chapter 3 data message.
 
 
 
