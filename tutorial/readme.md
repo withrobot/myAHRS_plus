@@ -278,7 +278,7 @@ CRC is a value expressed in ASCII with ‘exclusive or’ value in bite unit fro
 
 Example of command & response
 * Version request: "@version*3A"
-* Version request: "˜version,OK,product=myAHRS+,platform=myAHRS+ m3,sn=464432970808430886,ver=1.6,build=Jul 24 2014 12:07:01*6F"
+* Version request: "˜version,OK,product=myAHRS+,platform=myAHRS+m3,sn=464432970808430886,ver=1.6,build=Jul 24 2014 12:07:01*6F"
 
 
 
