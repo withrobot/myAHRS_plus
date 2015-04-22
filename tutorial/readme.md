@@ -460,9 +460,16 @@ Set every setting to default (factory setting) value.
 ###3. Data Message
 #####3.1 ASCII Format Message
 
-| Attribute name | Description |
-| ------|------ |
-| baudrate | Baudrate |
+*RIIMU
+ * Format: $RIIMU,sequence number,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z,magnet_x,magnet_y,magnet_z,temperature
+ * Example: $RIIMU,27,25,26,-1901,-16,-7,-11,259,-147,55,158
+*RIIMU
+ * Format: $RIIMU,sequence number,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z,magnet_x,magnet_y,magnet_z,temperature
+ * Example: $RIIMU,27,25,26,-1901,-16,-7,-11,259,-147,55,158
+
+
+
+
 
 #####3.2 BINARY Format Message
 If you specify the data message in BINARY form, you may take the difficult in protocol processing implementation.<br/>
