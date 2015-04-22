@@ -485,16 +485,6 @@ With myAHRS+ SDK, user does not need to implement sensor data message interpreta
 
 
 
-
-
-
-
-
-
-
-
-
-
 # Examples
 
 Some useful examples for using the myAHRS+ are available for various platforms.
