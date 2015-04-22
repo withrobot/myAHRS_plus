@@ -288,6 +288,7 @@ Requests common information such as the product name, firmware version, sensor s
 * Request: @version
 * Response: ~version,OK,product=myAHRS+,platform=myAHRS+m3,sn=464432970808430886,ver=1.5,build=Jul 13 2014 22:50:17
 * Attribute
+
 Attribute name | Description
 ------|------
 product | product name
