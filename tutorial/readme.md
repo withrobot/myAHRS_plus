@@ -298,11 +298,15 @@ Requests common information such as the product name, firmware version, sensor s
 | build | build date |
 
 #####2.2 Sensor Serial Number
-* Request:
-* Response:
+* Request: @sn
+* Response: ~sn,OK,sn=sensor serial number
 * Attribute
 
+| Attribute name | Description |
+| ------|------ |
+| sn | sensor serial number |
 
+#####2.3 Sensor ID
 
 
 
