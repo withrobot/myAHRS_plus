@@ -291,7 +291,7 @@ Requests common information such as the product name, firmware version, sensor s
 
 Attribute name | Description
 ------|------
-product | product name
+product || product name
 platform | board information
 sn | sensor serial number
 ver | firmware version
