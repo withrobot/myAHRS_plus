@@ -309,13 +309,26 @@ Requests common information such as the product name, firmware version, sensor s
 #####2.3 Sensor ID
 A sensor ID user can set. When using multiple sensors, using sensor and PC communication port (COM3 for example) as a sensor distinguisher is difficult so, sensor ID is used.<br/>
 Available sensor ID range is 0~65535 and when the command executes without the parameter (ID), the output is the current set ID.
+* Request: @id,ID
+* Response: ~id,OK,id=ID
+* Attribute
 
+| Attribute name | Description |
+| ------|------ |
+| id | sensor ID |
 
+#####2.3 Sensor Sensitivity
+The measuring range and sensitivity output of Accelerometer/Gyro Sensor.
+* Request: @sensitivity
+* Response: ~sensitivity,OK,acc range=16,gyro range=2000,acc sensitivity=4.882813e-04,gyro sensitivity=6.097561e-02
+* Attribute
 
-
-
-
-
+| Attribute name | Description |
+| ------|------ |
+| acc_range | Accelerometer measuring range (g) |
+| gyro_range | Gyroscope measuring range (dps) |
+| acc_sensitivity | Accelerometer sensitivity (g/LSB) |
+| gyro_sensitivity | Gyroscope sensitivity (dps/LSB) |
 
 
 
