@@ -277,11 +277,11 @@ CRC is a value expressed in ASCII with ‘exclusive or’ value in bite unit fro
 * There should be no space or blank between the CRC value and ‘*’.
 
 Example of command & response
-* Version request: "@version*3A"
-* Version request: "˜version,OK,product=myAHRS+,platform=myAHRS+m3,sn=464432970808430886,ver=1.6,build=Jul 24 2014 12:07:01*6F"
+* Version request: “@version*3A”
+* Version request: “˜version,OK,product=myAHRS+,platform=myAHRS+m3,sn=464432970808430886,ver=1.6,build=Jul 24 2014 12:07:01*6F”
 
-
-
+###2. Command & Response Message Details
+For the convenience of explanation, CRC field (“*XX”) and frame end (\r\n) are omitted in command examples.
 
 
 # Examples
