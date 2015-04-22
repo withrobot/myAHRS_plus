@@ -247,12 +247,13 @@ Header | Function
 
 Request message
 * A message from the Host(PC) to the sensor
-* [@][ body(N byte) ][*][ CRC(2byte) ][\r\n]
+* [@][body(N byte)][*][CRC(2byte)][\r\n]<br/>
 Response Message
 * A message from the sensor to the Host(PC) Request message
+* [~][body(N byte)][*][CRC(2byte)][\r\n]<br/>
 Data Message
 * Supports ASCII and BINARY formats
-* A message independent of Response message for Request message, sent to the Host which includes various sensor data
+* A message independent of Response message for Request message, sent to the Host which includes various sensor data<br/>
 
 # Examples
 
