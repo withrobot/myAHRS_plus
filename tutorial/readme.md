@@ -335,7 +335,8 @@ Select output mode for sensor message format and output type.
 * ‘A’: Set ASCII format for data message
 * ‘B’: Set BINARY format for data message
 * ‘C’: Continuous mode. Continuous output according to the user specified output rate
-* ‘T’: Trigger mode. Output according to the user request<br/>
+* ‘T’: Trigger mode. Output according to the user request
+
 To change the output mode, use the combination of above characters (MODE_STRING).<br/>
 For example, use “AC” to set ASCII format in Continuous mode. Running command without the parameters will display the current settings.<br/>
 If you specify the data message in BINARY form, you may take the difficult in protocol processing implementation. So, if you need to analyze the data message directly not using myAHRS+ SDK, we recommend you ASCII format for the data message in this case.
