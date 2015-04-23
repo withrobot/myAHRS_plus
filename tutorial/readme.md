@@ -447,7 +447,8 @@ NVRAM storable user settings are listed below.
 * Sensor ID
 * UART Baudrate
 * Calibration parameter
-* User coordinate<br/>
+* User coordinate
+
 Other than listed above settings will not be saved in NVRAM, so you need to set them every time when the sensor initializes.
 * Request: @save
 * Response: ~save,OK
