@@ -432,6 +432,7 @@ Change calibration parameter for each sensor(acceleration, gyroscope and magneto
 #####2.11 Change Baud Rate
 Change UART interface baud-rate. myAHRS+ supports the baud-rates listed below.
 * 9600, 14400, 19200, 38400, 57600, 115200, 230400, 460800
+
 When it receives the baud-rate change command, it sends the response and changes the baud-rate to the user specified value. Run command without the parameters will display the current settings.
 * Request: @baudrate,BAUDRATE
 * Response: ~baudrate,OK,baudrate=BAUDRATE
