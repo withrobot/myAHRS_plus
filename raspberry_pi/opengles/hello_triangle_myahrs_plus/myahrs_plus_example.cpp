@@ -1,4 +1,6 @@
 /*
+ *  Withrobot, Inc.
+ *
  *  Raspberry PI example 
  *   - 2015.04.29 ('c')void
  */
@@ -9,17 +11,16 @@
 #include <vector>
 #include <map>
 
-#include "myahrs_plus.hpp"
-using namespace WithRobot;
-
-static const int BAUDRATE = 115200;
-
-static const char* DIVIDER = "1";  // 100 Hz
-
 
 #include "attitude.h"
 extern attitude_t cube_attitude;
 extern "C" int triangle_main();
+
+#include "myahrs_plus.hpp"
+using namespace WithRobot;
+
+static const int   BAUDRATE = 115200;
+static const char* DIVIDER = "1";  // 100 Hz
 
 
 void handle_error(const char* error_msg)
