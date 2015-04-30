@@ -27,6 +27,7 @@
  *   - 2014.07.28 ('c')void
  *      - ver 1.0
  *   - 2015.04.30 ('c')void
+ *      - add example 7
  */
 
 #include <stdio.h>
@@ -651,6 +652,8 @@ public:
     MyAhrsHasOwnCoordinate(std::string port="", unsigned int baudrate=115200)
     : iMyAhrsPlus(port, baudrate), sample_count(0) {
         /*
+         *  coordinate transform matrix
+         *   -  rotate 180 degrees along the x axis
          *  [1,  0,  0;
          *   0, -1,  0;
          *   0,  0, -1]
@@ -686,6 +689,58 @@ public:
         return sensor_data_transformed;
     }
 
+protected:
+    /*
+     *  override event handler
+     */
+    void OnSensorData(int sensor_id, SensorData data) {
+        sample_count++;
+        {
+            LockGuard _l(lock);
+            sensor_data_original = data;
+            sensor_data_transformed = data;
+
+            /*
+             *  original orientation
+             */
+            sensor_data_original.euler_angle = sensor_data_original.quaternion.to_euler_angle();
+
+            /*
+             *  coordinate transformation
+             */
+
+            // attitude
+            sensor_data_transformed.quaternion = Quaternion::product(sensor_data_original.quaternion, q_s_to_u_conj);
+            sensor_data_transformed.euler_angle = sensor_data_transformed.quaternion.to_euler_angle();
+
+            // imu data
+            coordinate_transform(sensor_data_transformed.imu.ax, sensor_data_transformed.imu.ay, sensor_data_transformed.imu.az);
+            coordinate_transform(sensor_data_transformed.imu.gx, sensor_data_transformed.imu.gy, sensor_data_transformed.imu.gz);
+            coordinate_transform(sensor_data_transformed.imu.mx, sensor_data_transformed.imu.my, sensor_data_transformed.imu.mz);
+        }
+
+        print_out(sensor_id);
+    }
+
+    void OnAttributeChange(int sensor_id, std::string attribute_name, std::string value) {
+        printf("OnAttributeChange(id %d, %s, %s)\n", sensor_id, attribute_name.c_str(), value.c_str());
+    }
+
+private:
+    void coordinate_transform(float& v_x, float& v_y, float& v_z) {
+        Quaternion vec(v_x, v_y, v_z, 0);
+
+        /*
+         *  v_u = q * v_s * q_conj
+         */
+        Quaternion tmp = Quaternion::product(q_s_to_u, vec);
+        tmp = Quaternion::product(tmp, q_s_to_u_conj);
+
+        v_x = tmp.x;
+        v_y = tmp.y;
+        v_z = tmp.z;
+    }
+
     void print_out(int sensor_id) {
         std::string line(50, '-');
         printf("%s\n", line.c_str());
@@ -715,54 +770,6 @@ public:
                 imu_trns.ax, imu_trns.ay, imu_trns.az,
                 imu_trns.gx, imu_trns.gy, imu_trns.gz,
                 imu_trns.mx, imu_trns.my, imu_trns.mz);
-    }
-
-protected:
-    /*
-     *  override event handler
-     */
-    void OnSensorData(int sensor_id, SensorData data) {
-        sample_count++;
-        {
-            LockGuard _l(lock);
-            sensor_data_original = data;
-            sensor_data_original.euler_angle = sensor_data_original.quaternion.to_euler_angle();
-
-            /*
-             *  coordinate transformation
-             */
-            sensor_data_transformed = sensor_data_original;
-
-            // attitude
-            sensor_data_transformed.quaternion = Quaternion::product(sensor_data_original.quaternion, q_s_to_u_conj);
-            sensor_data_transformed.euler_angle = sensor_data_transformed.quaternion.to_euler_angle();
-
-            // imu data
-            coordinate_transform(sensor_data_transformed.imu.ax, sensor_data_transformed.imu.ay, sensor_data_transformed.imu.az);
-            coordinate_transform(sensor_data_transformed.imu.gx, sensor_data_transformed.imu.gy, sensor_data_transformed.imu.gz);
-            coordinate_transform(sensor_data_transformed.imu.mx, sensor_data_transformed.imu.my, sensor_data_transformed.imu.mz);
-        }
-
-        print_out(sensor_id);
-    }
-
-    void OnAttributeChange(int sensor_id, std::string attribute_name, std::string value) {
-        printf("OnAttributeChange(id %d, %s, %s)\n", sensor_id, attribute_name.c_str(), value.c_str());
-    }
-
-private:
-    void coordinate_transform(float& v_x, float& v_y, float& v_z) {
-        Quaternion vec(v_x, v_y, v_z, 0);
-
-        /*
-         *  v_u = q x v_s x q*
-         */
-        Quaternion tmp = Quaternion::product(q_s_to_u, vec);
-        tmp = Quaternion::product(tmp, q_s_to_u_conj);
-
-        v_x = tmp.x;
-        v_y = tmp.y;
-        v_z = tmp.z;
     }
 };
 
