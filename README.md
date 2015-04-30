@@ -32,6 +32,8 @@ Detailed description is [here](tutorial).
 
 * [myAHRS+ SDK](common_cpp)
 * [python](common_python)
+
 * [odroid XU3](odroid_xu3)
 * [odroid C1](odroid_c1)
+
 * [Raspberri PI](raspberry_pi)
