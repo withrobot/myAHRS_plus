@@ -832,12 +832,6 @@ int main(int argc, char* argv[]) {
     }
 #endif
 
-#if 0
-    MyAhrsHasOwnCoordinate::unit_test();
-    return 0;
-#endif
-
-
     if(argc < 3) {
         printf("ERROR. need more arguments\n");
         usage(args[0].c_str());
