@@ -1244,7 +1244,7 @@ namespace WithRobot {
             set(m11, m12, m13, m21, m22, m23, m31, m32, m33);
         }
 
-        DirectionCosineMatrix(std::string str_mat, char delimiter=' ') {
+        DirectionCosineMatrix(std::string str_mat, char delimiter=',') {
             set(str_mat, delimiter);
         }
 
@@ -1264,7 +1264,7 @@ namespace WithRobot {
             mat[6] = m31, mat[7] = m32, mat[8] = m33;
         }
 
-        inline void set(std::string str_mat, char delimiter=' ') {
+        inline void set(std::string str_mat, char delimiter=',') {
             std::vector<std::string> tokens;
             if(StringUtil::split(tokens, str_mat.c_str(), delimiter) == 9) {
                 set(tokens);
@@ -1283,6 +1283,8 @@ namespace WithRobot {
             }
         }
 
+        void set(Quaternion& q);
+
         inline std::string to_string() {
             std::vector<std::string> temp;
             StringUtil::to_string_list(temp, mat, 9);
@@ -1298,39 +1300,21 @@ namespace WithRobot {
             return e;
         }
 
-#if 0
-        void set(Quaternion& q) {
-            // http://www.mathworks.co.kr/kr/help/aeroblks/quaternionstodirectioncosinematrix.html
-            double xx = q.x*q.x;
-            double xy = q.x*q.y;
-            double xz = q.x*q.z;
-            double xw = q.x*q.w;
-            double yy = q.y*q.y;
-            double yz = q.y*q.z;
-            double yw = q.y*q.w;
-            double zz = q.z*q.z;
-            double zw = q.z*q.w;
-            double ww = q.w*q.w;
+        Quaternion to_quaternion();
 
-            mat[0] =  xx - yy - zz + ww;
-            mat[1] = 2.0*(xy + zw);
-            mat[2] = 2.0*(xz - yw);
-
-            mat[3] = 2.0*(xy - zw);
-            mat[4] = -xx + yy - zz + ww;
-            mat[5] = 2.0*(yz + xw);
-
-            mat[6] = 2.0*(xz + yw);
-            mat[7] = 2.0*(yz - xw);
-            mat[8] = -xx - yy + zz + ww;
-        }
-#else
-        void set(Quaternion& q);
-#endif
+        static void unit_test();
 
     private:
         inline double MAT(unsigned int row, unsigned int col) {
             return mat[(row)*3 + col];
+        }
+
+        double qvm(int row, int col, double denominator) {
+            return (MAT(row-1, col-1) - MAT(col-1, row-1))/(4*denominator);
+        }
+
+        double qvp(int row, int col, double denominator) {
+            return (MAT(row-1, col-1) + MAT(col-1, row-1))/(4*denominator);
         }
     };
 
@@ -1461,6 +1445,92 @@ namespace WithRobot {
 
     void DirectionCosineMatrix::set(Quaternion& q) {
         *this = q.to_dcm();
+    }
+
+    Quaternion DirectionCosineMatrix::to_quaternion() {
+        /*
+         *  쿼터니언
+         *   - DCM을 기준으로 생각하면 편하므로 DCM으로부터 쿼터니언을 구한다.
+         *   - Introduction into quaternions for spacecraft attitude representation
+         *      - Dr. -Ing. Zizung Yoon Technical University of Berlin Department of Astronautics and Aeronautics Berlin, Germany
+         *      - Eq (6-1)
+         *
+         */
+        double q_w = sqrt((1 + MAT(0,0) + MAT(1,1) + MAT(2,2))/4.0);
+        double q_x = sqrt((1 + MAT(0,0) - MAT(1,1) - MAT(2,2))/4.0);
+        double q_y = sqrt((1 - MAT(0,0) + MAT(1,1) - MAT(2,2))/4.0);
+        double q_z = sqrt((1 - MAT(0,0) - MAT(1,1) + MAT(2,2))/4.0);
+
+        double q_list[] = {q_w, q_x, q_y, q_z};
+        int max_index = 0;
+        double max_value = q_list[0];
+
+        for(int i=0; i<4; i++) {
+            if(q_list[i] > max_value) {
+                max_index = i;
+                max_value = q_list[i];
+            }
+        }
+
+        switch(max_index) {
+        case 0:
+            q_w = max_value;
+            q_x = qvm(3, 2, max_value);
+            q_y = qvm(1, 3, max_value);
+            q_z = qvm(2, 1, max_value);
+            break;
+
+        case 1:
+            q_w = qvm(3, 2, max_value);
+            q_x = max_value;
+            q_y = qvp(2, 1, max_value);
+            q_z = qvp(1, 3, max_value);
+            break;
+
+        case 2:
+            q_w = qvm(1, 3, max_value);
+            q_x = qvp(2, 1, max_value);
+            q_y = max_value;
+            q_z = qvp(3, 2, max_value);
+            break;
+
+        case 3:
+            q_w = qvm(2, 1, max_value);
+            q_x = qvp(1, 3, max_value);
+            q_y = qvp(3, 2, max_value);
+            q_z = max_value;
+            break;
+        }
+
+        Quaternion q(q_x, q_y, q_z, q_w);
+
+        return q;
+    }
+
+    void DirectionCosineMatrix::unit_test() {
+        // http://kr.mathworks.com/help/aerotbx/ug/dcm2quat.html
+        //        dcm        = [ 0 1 0; 1 0 0; 0 0 1];
+        //        dcm(:,:,2) = [ 0.4330    0.2500   -0.8660; ...
+        //                       0.1768    0.9186    0.3536; ...
+        //                       0.8839   -0.3062    0.3536];
+        //        q = dcm2quat(dcm)
+        //
+        //        q =
+        //
+        //            0.7071         0         0         0
+        //            0.8224    0.2006    0.5320    0.0223
+
+        const char* dcm_str[] = {
+                "0, 1, 0, 1, 0, 0, 0, 0, 1",
+                "0.4330, 0.2500, -0.8660, 0.1768, 0.9186, 0.3536, 0.8839, -0.3062, 0.3536",
+                "1, 0, 0,  0, -1, 0,  0, 0, -1"
+        };
+
+        for(int i=0; i<sizeof(dcm_str)/sizeof(dcm_str[0]); i++) {
+            DirectionCosineMatrix dcm(dcm_str[i]);
+            Quaternion q = dcm.to_quaternion();
+            printf("dcm : [%s] \n -> q : %.4f, %.4f, %.4f, %.4f\n", dcm_str[i], q.w, q.x, q.y, q.z);
+        }
     }
 
 

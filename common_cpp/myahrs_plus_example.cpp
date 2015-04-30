@@ -26,6 +26,7 @@
  *   - 2014.07.13 ('c')void
  *   - 2014.07.28 ('c')void
  *      - ver 1.0
+ *   - 2015.04.30 ('c')void
  */
 
 #include <stdio.h>
@@ -625,6 +626,168 @@ void ex6_multiple_sensors(std::vector<std::string>& serial_device_list, int baud
 
 /******************************************************************************************************************************
  *
+ *  EXAMPLE 7
+ *
+ *  Coordinate Transformation
+ *
+ ******************************************************************************************************************************/
+
+class MyAhrsHasOwnCoordinate : public iMyAhrsPlus
+{
+    Platform::Mutex lock;
+    SensorData sensor_data_original;
+    SensorData sensor_data_transformed;
+
+    /*
+     *  coordinate transformation quaternion
+     *    sensor -> user
+     */
+    Quaternion q_s_to_u;
+    Quaternion q_s_to_u_conj;
+
+public:
+    int sample_count;
+
+    MyAhrsHasOwnCoordinate(std::string port="", unsigned int baudrate=115200)
+    : iMyAhrsPlus(port, baudrate), sample_count(0) {
+        /*
+         *  [1,  0,  0;
+         *   0, -1,  0;
+         *   0,  0, -1]
+         */
+        DirectionCosineMatrix dcm("1, 0, 0,  0, -1, 0,  0, 0, -1");
+        q_s_to_u = dcm.to_quaternion();
+
+        q_s_to_u_conj = q_s_to_u;
+        q_s_to_u_conj = q_s_to_u.conj();
+    }
+    ~MyAhrsHasOwnCoordinate() {}
+
+    bool initialize() {
+        bool ok = false;
+        do {
+            if(start() == false) break;
+            if(cmd_binary_data_format("QUATERNION, IMU") == false) break;
+            if(cmd_divider(DIVIDER) == false) break;
+            if(cmd_mode("BC") == false) break;
+            ok = true;
+        } while(0);
+
+        return ok;
+    }
+
+    inline void get_data(SensorData& data) {
+        LockGuard _l(lock);
+        data = sensor_data_transformed;
+    }
+
+    inline SensorData get_data() {
+        LockGuard _l(lock);
+        return sensor_data_transformed;
+    }
+
+    void print_out(int sensor_id) {
+        std::string line(50, '-');
+        printf("%s\n", line.c_str());
+
+        Quaternion& q_org = sensor_data_original.quaternion;
+        EulerAngle& e_org = sensor_data_original.euler_angle;
+        ImuData<float>& imu_org = sensor_data_original.imu;
+
+        printf("%04d) sensor_id %d, Quaternion O(xyzw)=%.4f,%.4f,%.4f,%.4f, Angle(rpy)=%.1f, %.1f, %.1f, Accel(xyz)=%.4f,%.4f,%.4f, Gyro(xyz)=%.4f,%.4f,%.4f, Magnet(xyz)=%.2f,%.2f,%.2f\n",
+                sample_count,
+                sensor_id,
+                q_org.x, q_org.y, q_org.z, q_org.w,
+                e_org.roll, e_org.pitch, e_org.yaw,
+                imu_org.ax, imu_org.ay, imu_org.az,
+                imu_org.gx, imu_org.gy, imu_org.gz,
+                imu_org.mx, imu_org.my, imu_org.mz);
+
+        Quaternion& q_trns = sensor_data_transformed.quaternion;
+        EulerAngle& e_trns = sensor_data_transformed.euler_angle;
+        ImuData<float>& imu_trns = sensor_data_transformed.imu;
+
+        printf("%04d) sensor_id %d, Quaternion T(xyzw)=%.4f,%.4f,%.4f,%.4f, Angle(rpy)=%.1f, %.1f, %.1f, Accel(xyz)=%.4f,%.4f,%.4f, Gyro(xyz)=%.4f,%.4f,%.4f, Magnet(xyz)=%.2f,%.2f,%.2f\n",
+                sample_count,
+                sensor_id,
+                q_trns.x, q_trns.y, q_trns.z, q_trns.w,
+                e_trns.roll, e_trns.pitch, e_trns.yaw,
+                imu_trns.ax, imu_trns.ay, imu_trns.az,
+                imu_trns.gx, imu_trns.gy, imu_trns.gz,
+                imu_trns.mx, imu_trns.my, imu_trns.mz);
+    }
+
+protected:
+    /*
+     *  override event handler
+     */
+    void OnSensorData(int sensor_id, SensorData data) {
+        sample_count++;
+        {
+            LockGuard _l(lock);
+            sensor_data_original = data;
+            sensor_data_original.euler_angle = sensor_data_original.quaternion.to_euler_angle();
+
+            /*
+             *  coordinate transformation
+             */
+            sensor_data_transformed = sensor_data_original;
+
+            // attitude
+            sensor_data_transformed.quaternion = Quaternion::product(sensor_data_original.quaternion, q_s_to_u_conj);
+            sensor_data_transformed.euler_angle = sensor_data_transformed.quaternion.to_euler_angle();
+
+            // imu data
+            coordinate_transform(sensor_data_transformed.imu.ax, sensor_data_transformed.imu.ay, sensor_data_transformed.imu.az);
+            coordinate_transform(sensor_data_transformed.imu.gx, sensor_data_transformed.imu.gy, sensor_data_transformed.imu.gz);
+            coordinate_transform(sensor_data_transformed.imu.mx, sensor_data_transformed.imu.my, sensor_data_transformed.imu.mz);
+        }
+
+        print_out(sensor_id);
+    }
+
+    void OnAttributeChange(int sensor_id, std::string attribute_name, std::string value) {
+        printf("OnAttributeChange(id %d, %s, %s)\n", sensor_id, attribute_name.c_str(), value.c_str());
+    }
+
+private:
+    void coordinate_transform(float& v_x, float& v_y, float& v_z) {
+        Quaternion vec(v_x, v_y, v_z, 0);
+
+        /*
+         *  v_u = q x v_s x q*
+         */
+        Quaternion tmp = Quaternion::product(q_s_to_u, vec);
+        tmp = Quaternion::product(tmp, q_s_to_u_conj);
+
+        v_x = tmp.x;
+        v_y = tmp.y;
+        v_z = tmp.z;
+    }
+};
+
+
+void ex7_coordinate_transform(const char* serial_device, int baudrate)
+{
+    printf("\n### %s() ###\n", __FUNCTION__);
+
+    MyAhrsHasOwnCoordinate sensor(serial_device, baudrate);
+
+    if(sensor.initialize() == false) {
+        handle_error("initialize() returns false");
+    }
+
+    while(sensor.sample_count < 3000) {
+        Platform::msleep(100);
+    }
+
+    printf("END OF TEST(%s)\n\n", __FUNCTION__);
+}
+
+
+
+/******************************************************************************************************************************
+ *
  *
  *
  ******************************************************************************************************************************/
@@ -662,6 +825,12 @@ int main(int argc, char* argv[]) {
     }
 #endif
 
+#if 0
+    MyAhrsHasOwnCoordinate::unit_test();
+    return 0;
+#endif
+
+
     if(argc < 3) {
         printf("ERROR. need more arguments\n");
         usage(args[0].c_str());
@@ -698,6 +867,9 @@ int main(int argc, char* argv[]) {
     case 6:
     	ex6_multiple_sensors(serial_device_list, BAUDRATE);
     	break;
+    case 7:
+        ex7_coordinate_transform(serial_device_list[0].c_str(), BAUDRATE);
+        break;
     default:
     	handle_error("Invalid example id");
     	break;
