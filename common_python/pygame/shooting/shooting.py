@@ -14,7 +14,8 @@
 
 import pygame
 import numpy as np
-import traceback
+import sys, traceback
+from myahrs_plus import MyAhrsPlus
 
 def loadImageFile( fileName, useColorKey = False ):
     try:
@@ -35,7 +36,7 @@ def loadImageFile( fileName, useColorKey = False ):
     return image
     
 
-class Target(pygame.sprite.Sprite):
+class MovingTarget(pygame.sprite.Sprite):
     def __init__(self, image_path):
         
         # Intialize Sprite, our base class
@@ -77,23 +78,62 @@ class Target(pygame.sprite.Sprite):
             self.rect.move_ip( (self.x_velocity, self.y_velocity ) )
 
 
-class Cross(object):
-    def __init__(self, screen):
-        super(Cross, self).__init__()
+class SniperTarget(object):
+    def __init__(self, screen, ahrs):
+        super(SniperTarget, self).__init__()
         self.mouse = pygame.image.load("images/sniper_target_3.png").convert_alpha()
         self.screen = screen
+        self.ahrs = ahrs 
+        
+        surface = pygame.display.get_surface()
+        self.area = surface.get_rect()
+        width = self.area.right - self.area.left
+        height = self.area.bottom - self.area.top
+        self.center = (self.area.left + width/2, self.area.top + height/2)
+        
+        self.distance = height
+                
 
     def update(self):
-        self.update_with_mouse()
+        if(self.ahrs is None):
+            self.update_with_mouse()
+        else:
+            self.update_with_ahrs() 
+
 
     def update_with_mouse(self):
         mousex, mousey = pygame.mouse.get_pos()
         mousex -= self.mouse.get_width()/2
         mousey -= self.mouse.get_height()/2
         self.screen.blit(self.mouse, (mousex,mousey))    
+        
+        
+    def update_with_ahrs(self):
+        roll, pitch, yaw = self.ahrs.read_euler();
+        
+        delta_x = self.distance*np.sin(yaw*np.pi/180.0)
+        delta_y = self.distance*np.sin(-pitch*np.pi/180.0)
+        
+        mousex, mousey = (int(self.center[0] + delta_x), int(self.center[1] + delta_y)) 
+        self.screen.blit(self.mouse, (mousex,mousey))            
 
 
-def main():
+def main(serial_device):
+
+    # initialize AHRS 
+    if(serial_device is not None):
+        ahrs = MyAhrsPlus(serial_device=serial_device)
+        
+        yaw_list = []
+        for i in range(10):
+            e = ahrs.read_euler();
+            yaw_list.append(e[2])
+        
+        yaw_offset = np.mean(yaw_list)
+        print "Yaw offset %.2f"%(yaw_offset)
+        ahrs.set_yaw_offset(yaw_offset)            
+    else:
+        ahrs = None
 
     # Initialize pygame and create a window or screen to render to
     pygame.init()
@@ -106,17 +146,17 @@ def main():
     
     # create cross 
     pygame.mouse.set_visible(False)
-    cross = Cross(screen)
+    cross = SniperTarget(screen, ahrs)
     
     # create targets 
     all_target = pygame.sprite.Group()
     for image_path in ["images/target_%d.png"%i for i in range(12)]:
-        all_target.add(Target(image_path))
+        all_target.add(MovingTarget(image_path))
 
     clock = pygame.time.Clock()
 
     while 1:
-        clock.tick( 60 )
+        clock.tick(30)
 
         # Handle input events
         pygame.event.pump()
@@ -139,5 +179,11 @@ def main():
 
 
 if __name__ == '__main__': 
-    main()
+    
+    if(len(sys.argv) < 2):
+        serial_device = None
+    else : 
+        serial_device = sys.argv[1]
+            
+    main(serial_device)
 
