@@ -1,6 +1,6 @@
-# myAHRS+ python examples
+# myAHRS+ pyQT examples
 
-This examples show you how to use the myAHRS+ with python.  
+This examples show you how to use the myAHRS+ with pyQT.  
 
 ## Requirements
 
@@ -13,20 +13,9 @@ This examples show you how to use the myAHRS+ with python.
 
 It is assumed that your myAHRS+ is connected to /dev/ttyACM0(linux) or COM1(windows).
 
-### python_example.py
-
-This is the simplest example. It prints out attitude and IMU data(acceleration, angular rate, magnetic fields) on your screen. 
-
-Run this example as follows.
-
-```
-$ python python_example.py /dev/ttyACM0
-```
-
-
 ### pyqt_example.py
 
-![ScreenShot](images/windows_sample.PNG)
+![ScreenShot](../images/windows_sample.PNG)
 
 It displays a box that rotates along with the attitude of the myAHRS+. 
 
