@@ -83,11 +83,13 @@ class Cross():
         self.screen = screen
 
     def update(self):
-        a = pygame.mouse.get_pos()
-        mousex, mousey = a
+        self.update_with_mouse()
+
+    def update_with_mouse(self):
+        mousex, mousey = pygame.mouse.get_pos()
         mousex -= self.mouse.get_width()/2
         mousey -= self.mouse.get_height()/2
-        self.screen.blit(self.mouse, (mousex,mousey))	
+        self.screen.blit(self.mouse, (mousex,mousey))    
 
 
 def main():
