@@ -77,8 +77,9 @@ class Target(pygame.sprite.Sprite):
             self.rect.move_ip( (self.x_velocity, self.y_velocity ) )
 
 
-class Cross():
+class Cross(object):
     def __init__(self, screen):
+        super(Cross, self).__init__()
         self.mouse = pygame.image.load("images/sniper_target_3.png").convert_alpha()
         self.screen = screen
 
@@ -108,11 +109,8 @@ def main():
     cross = Cross(screen)
     
     # create targets 
-    
-    target_image_list = ["images/target_%d.png"%i for i in range(12)]
-    
     all_target = pygame.sprite.Group()
-    for image_path in target_image_list:
+    for image_path in ["images/target_%d.png"%i for i in range(12)]:
         all_target.add(Target(image_path))
 
     clock = pygame.time.Clock()
