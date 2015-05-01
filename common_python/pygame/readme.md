@@ -7,6 +7,14 @@ This examples show you how to use the myAHRS+ with pygame.
 * pygame
 * pySerial 
 
+## Download
+Download source from github. 
+
+```
+$ cd YOUR_WORKING_DIRECTORY
+$ svn export https://github.com/withrobot/myAHRS_plus/trunk/common_python/pygame
+```
+
 ## Details of examples  
 
 It is assumed that your myAHRS+ is connected to /dev/ttyACM0(linux) or COM1(windows).
@@ -14,6 +22,7 @@ It is assumed that your myAHRS+ is connected to /dev/ttyACM0(linux) or COM1(wind
 ### shooting
 
 ![ScreenShot](../images/pygame_shooting.png)
+
 
 Run  
 
