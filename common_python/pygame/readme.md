@@ -1,4 +1,4 @@
-# myAHRS+ pyQT examples
+# myAHRS+ pygame examples
 
 This examples show you how to use the myAHRS+ with pygame.  
 
