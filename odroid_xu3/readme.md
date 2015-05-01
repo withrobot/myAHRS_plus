@@ -4,4 +4,4 @@
 
 * [myAHRS+ SDK](../common_cpp)
 * [python](../common_python)
-* [opengl](opengles_30)
+* [opengl](opengles30)
