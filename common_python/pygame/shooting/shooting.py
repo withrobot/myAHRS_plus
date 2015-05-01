@@ -8,16 +8,19 @@
 #   - http://www.codesampler.com/python.htm
 #     - Deriving a custom sprite from Pygame 's Sprite class
 #   - https://www.youtube.com/watch?v=h4jgpsB8EbQ
+#   - http://www.iconarchive.com/show/flat-emoticons-icons-by-icons-land.html
 #
 #
 
 import pygame
 import numpy as np
+import traceback
 
 def loadImageFile( fileName, useColorKey = False ):
     try:
         image = pygame.image.load( fileName )
     except pygame.error:
+        traceback.print_exc()
         raise IOError #from "File " + fileName + " not found."
 
     # To speed things up, convert the images to SDL's internal format.
@@ -45,14 +48,14 @@ class Target(pygame.sprite.Sprite):
         surface = pygame.display.get_surface()
         self.area = surface.get_rect()
 
-        self.x_velocity = 5.0 + 5*np.random.random()
-        self.y_velocity = 1.0 + 5*np.random.random()
+        self.x_velocity = 5.0 + 10*np.random.random()
+        self.y_velocity = 1.0 + 10*np.random.random()
 
     def update( self ):
 
         # Simulate gravity by constantly adding some amount to the
         # sprite's Y velocity. This will pull the sprite down
-        self.y_velocity += 0.5
+        self.y_velocity += (0.5 + 0.1*np.random.random())
 
         # Now, move the sprite...
         self.rect.move_ip( (self.x_velocity, self.y_velocity ) )
@@ -76,7 +79,7 @@ class Target(pygame.sprite.Sprite):
 
 class Cross():
     def __init__(self, screen):
-        self.mouse = pygame.image.load("images/crosshairsmouse.png").convert_alpha()
+        self.mouse = pygame.image.load("images/sniper_target_3.png").convert_alpha()
         self.screen = screen
 
     def update(self):
@@ -103,9 +106,12 @@ def main():
     cross = Cross(screen)
     
     # create targets 
+    
+    target_image_list = ["images/target_%d.png"%i for i in range(12)]
+    
     all_target = pygame.sprite.Group()
-    for i in range(10):
-        all_target.add(Target("images/mario.bmp"))
+    for image_path in target_image_list:
+        all_target.add(Target(image_path))
 
     clock = pygame.time.Clock()
 
