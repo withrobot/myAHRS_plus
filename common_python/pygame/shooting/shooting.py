@@ -25,7 +25,7 @@ def loadImageFile( fileName, useColorKey = False ):
         raise IOError #from "File " + fileName + " not found."
 
     # To speed things up, convert the images to SDL's internal format.
-    image = image.convert()
+    #image = image.convert()
 
     if useColorKey is True:
         # Use the color of the pixel located at (0,0) as our color-key
@@ -34,15 +34,56 @@ def loadImageFile( fileName, useColorKey = False ):
 
     # Return the image
     return image
+
+
+def load_explosion_image(fileName):
+    #
+    # 10 x 4 
+    #
+    BPP = 4 # RGBA 
+    SOURCE_WIDTH = 930
+    SOURCE_HEIGHT = 400
+    
+    SEGMENT_WITH = 93
+    SEGMENT_HEIGHT = 100
+    
+    def read_subimage(image_str, x, y, width, height):
+        sub_image_str = ""
+        for y_sub in range(height):
+            start_offset = (x + (y+y_sub)*SOURCE_WIDTH)*BPP
+            end_offset = start_offset + width*BPP
+            sub_image_str += image_str[start_offset:end_offset]
+            
+        return sub_image_str
+    
+    image = loadImageFile(fileName)
+    image_str = pygame.image.tostring(image, "RGBA", True)
+        
+    sub_image_list = []
+    for row in range(4):
+        for col in range(10):
+            sub_image_str = read_subimage(image_str, col*SEGMENT_WITH, 300 - row*SEGMENT_HEIGHT, SEGMENT_WITH, SEGMENT_HEIGHT)
+            sub_image = pygame.image.fromstring(sub_image_str, (SEGMENT_WITH, SEGMENT_HEIGHT), "RGBA", True)        
+            sub_image_list.append(sub_image)    
+    
+    return sub_image_list
     
 
 class MovingTarget(pygame.sprite.Sprite):
-    def __init__(self, image_path):
+    def __init__(self, id, image_path, explosion_images):
         
         # Intialize Sprite, our base class
         pygame.sprite.Sprite.__init__( self )
-
+        
+        self.id = id 
+        
+        self.state_killed = False 
+        
+        self.explosion_images = explosion_images
+        self.explosion_image_index = 0
+        
         self.image = loadImageFile(image_path, True)
+            
         self.rect = self.image.get_rect()
         self.rect.topleft = (0, 150)
 
@@ -53,6 +94,17 @@ class MovingTarget(pygame.sprite.Sprite):
         self.y_velocity = 1.0 + 10*np.random.random()
 
     def update( self ):
+        
+        if(self.state_killed == True):
+            try:
+                self.image = self.explosion_images[self.explosion_image_index]
+                self.explosion_image_index += 1
+            except:
+                #traceback.print_exc()
+                pass 
+            
+            self.rect.move_ip((0, 0))
+            return 
 
         # Simulate gravity by constantly adding some amount to the
         # sprite's Y velocity. This will pull the sprite down
@@ -76,12 +128,32 @@ class MovingTarget(pygame.sprite.Sprite):
             # Y velocity so it will bounce back up
             self.y_velocity = -(self.y_velocity)
             self.rect.move_ip( (self.x_velocity, self.y_velocity ) )
+            
+    
+    def kill(self, sniper_target_pos):
+        if(self.state_killed == True):
+            return False
+        
+        x, y, w, h = self.rect
+        st_pos_x, st_pos_y = sniper_target_pos
+        self.state_killed = ((x < st_pos_x and st_pos_x < x + w) and (y < st_pos_y and st_pos_y < y + h))
+        
+        if(self.state_killed):
+            cx = x + w/2
+            cy = y + h/2
+            _, _, w, h = self.explosion_images[0].get_rect()
+            self.rect = pygame.Rect(cx-w/2, cy-h/2, w, h)
+            print "Target %d has been killed"%(self.id)
+            return True
+        else:
+            return False  
+        
 
 
 class SniperTarget(object):
     def __init__(self, screen, ahrs):
         super(SniperTarget, self).__init__()
-        self.mouse = pygame.image.load("images/sniper_target_3.png").convert_alpha()
+        self.sniper_target = pygame.image.load("images/sniper_target_3.png").convert_alpha()
         self.screen = screen
         self.ahrs = ahrs 
         
@@ -92,30 +164,40 @@ class SniperTarget(object):
         self.center = (self.area.left + width/2, self.area.top + height/2)
         
         self.distance = height
-                
+        
+        self.pos = (0, 0)
+        
 
     def update(self):
         if(self.ahrs is None):
             self.update_with_mouse()
         else:
             self.update_with_ahrs() 
-
-
+    
+    
     def update_with_mouse(self):
-        mousex, mousey = pygame.mouse.get_pos()
-        mousex -= self.mouse.get_width()/2
-        mousey -= self.mouse.get_height()/2
-        self.screen.blit(self.mouse, (mousex,mousey))    
+        pos_x, pos_y = pygame.mouse.get_pos()
         
+        self.pos = (pos_x, pos_y)
         
+        pos_x -= self.sniper_target.get_width()/2
+        pos_y -= self.sniper_target.get_height()/2
+        self.screen.blit(self.sniper_target, (pos_x,pos_y))  
+            
+            
     def update_with_ahrs(self):
         roll, pitch, yaw = self.ahrs.read_euler();
         
         delta_x = self.distance*np.sin(yaw*np.pi/180.0)
         delta_y = self.distance*np.sin(-pitch*np.pi/180.0)
         
-        mousex, mousey = (int(self.center[0] + delta_x), int(self.center[1] + delta_y)) 
-        self.screen.blit(self.mouse, (mousex,mousey))            
+        pos_x, pos_y = (int(self.center[0] + delta_x), int(self.center[1] + delta_y)) 
+        
+        self.pos = (pos_x, pos_y)
+        
+        pos_x -= self.sniper_target.get_width()/2
+        pos_y -= self.sniper_target.get_height()/2        
+        self.screen.blit(self.sniper_target, (pos_x,pos_y))            
 
 
 def main(serial_device):
@@ -146,12 +228,21 @@ def main(serial_device):
     
     # create cross 
     pygame.mouse.set_visible(False)
-    cross = SniperTarget(screen, ahrs)
+    sniper_target = SniperTarget(screen, ahrs)
+    
+    #
+    explosion_images = load_explosion_image("images/explosion.png")
     
     # create targets 
-    all_target = pygame.sprite.Group()
-    for image_path in ["images/target_%d.png"%i for i in range(12)]:
-        all_target.add(MovingTarget(image_path))
+    all_target_sprite_group = pygame.sprite.Group()
+    all_target = []
+    
+    TARGET_NUM = 12
+    
+    for id, image_path in zip(range(TARGET_NUM), ["images/target_%d.png"%i for i in range(TARGET_NUM)]):
+        target = MovingTarget(id, image_path, explosion_images)
+        all_target_sprite_group.add(target)
+        all_target.append(target)
 
     clock = pygame.time.Clock()
 
@@ -163,16 +254,22 @@ def main(serial_device):
         keyinput = pygame.key.get_pressed()
         if keyinput[pygame.K_ESCAPE] or pygame.event.peek(pygame.QUIT):
             break
+        
+        if keyinput[pygame.K_SPACE]:
+            print "fire !", sniper_target.pos
+            for target in all_target:
+                if(target.kill(sniper_target.pos) == True):
+                    break
 
         # Update targets
-        all_target.update()
+        all_target_sprite_group.update()
 
         # Display the background
         screen.blit( background, (0, 0) )
-        all_target.draw( screen )
+        all_target_sprite_group.draw( screen )
 
-        # Draw cross 
-        cross.update() 
+        # Draw sniper_target 
+        sniper_target.update() 
 
         # Display the sprite
         pygame.display.flip()
