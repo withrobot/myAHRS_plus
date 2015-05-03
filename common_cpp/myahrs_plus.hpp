@@ -37,6 +37,8 @@
  *  2014.08.27 ('c')void
  *  2014.09.09 ('c')void
  *  2015.04.30 ('c')void
+ *  2015.05.03 ('c')void
+ *    - remove StringUtil::ltrim()  StringUtil::rtrim()  StringUtil::strip()
  *
  */
 
@@ -624,6 +626,7 @@ namespace WithRobot {
             }while(1);
         }
 
+#if 0
         // trim from start
         static inline std::string &ltrim(std::string &s) {
                 s.erase(s.begin(), std::find_if(s.begin(), s.end(), std::not1(std::ptr_fun<int, int>(std::isspace))));
@@ -640,6 +643,7 @@ namespace WithRobot {
         static inline std::string &strip(std::string &s) {
                 return ltrim(rtrim(s));
         }
+#endif
 
         static int split(std::vector<std::string> & token_list, const char* c_str, char delimiter, int token_max=-1) {
             std::stringstream is(c_str);
