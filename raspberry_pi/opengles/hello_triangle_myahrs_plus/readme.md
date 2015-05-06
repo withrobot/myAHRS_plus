@@ -25,7 +25,7 @@ $ svn export https://github.com/withrobot/myAHRS_plus/trunk/raspberry_pi
 Build all examples.
 
 ```
-$ cd cd raspberry_pi/opengles/hello_triangle_myahrs_plus/
+$ cd raspberry_pi/opengles/hello_triangle_myahrs_plus/
 $ make clean; make all
 ```
 
