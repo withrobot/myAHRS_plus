@@ -291,11 +291,11 @@ Requests common information such as the product name, firmware version, sensor s
 
 | Attribute name | Description |
 | ------|------ |
-| product | product name |
-| platform | board information |
-| sn | sensor serial number |
-| ver | firmware version |
-| build | build date |
+| product | Product name |
+| platform | Board information |
+| sn | Sensor serial number |
+| ver | Firmware version |
+| build | Build date |
 
 #####2.2 Sensor Serial Number
 * Request: @sn
@@ -304,7 +304,7 @@ Requests common information such as the product name, firmware version, sensor s
 
 | Attribute name | Description |
 | ------|------ |
-| sn | sensor serial number |
+| sn | Sensor serial number |
 
 #####2.3 Sensor ID
 A sensor ID user can set. When using multiple sensors, using sensor and PC communication port (COM3 for example) as a sensor distinguisher is difficult so, sensor ID is used.<br/>
@@ -315,7 +315,7 @@ Available sensor ID range is 0~65535 and when the command executes without the p
 
 | Attribute name | Description |
 | ------|------ |
-| id | sensor ID |
+| id | Sensor ID |
 
 #####2.4 Sensor Sensitivity
 The measuring range and sensitivity output of Accelerometer/Gyro Sensor.
@@ -346,7 +346,7 @@ If you specify the data message in BINARY form, you may take the difficult in pr
 
 | Attribute name | Description |
 | ------|------ |
-| mode | output mode |
+| mode | Output mode |
 * Example: ASCII format & Continuous output => @mode,AC
 
 #####2.6 Data Output format(ASCII) setting
@@ -367,7 +367,7 @@ Run command without the parameters will display the current settings. The detail
 
 | Attribute name | Description |
 | ------|------ |
-| fmt | message format name |
+| fmt | Message format name |
 * Example: To display quaternion & IMU data => @asc_out,QUATIMU
 
 #####2.7 Data Output format(BINARY) setting
@@ -389,8 +389,8 @@ If you specify the data message in BINARY form, you may take the difficult in pr
 | ------|------ |
 | fmt | Message format name |
 * Example
- * @bin out,EULER RIIMU: display EULER angle and uncompensated sensor value
- * @bin out,IMU: display compensated sensor value only
+ * @bin out,EULER RIIMU: Display EULER angle and uncompensated sensor value
+ * @bin out,IMU: Display compensated sensor value only
 
 #####2.8 Data Request
 A sensor data request command when the data output mode is in trigger mode. Data message output instead of the command response. Error response will return when it is in continuous mode.
@@ -407,9 +407,9 @@ Run command without the parameters, current settings will be displayed.
 
 | Attribute name | Description |
 | ------|------ |
-| divider | divider value |
-| max_rate | maximum output frequency |
-* Example: set divider 1 => @divider,1
+| divider | Divider value |
+| max_rate | Maximum output frequency |
+* Example: Set divider 1 => @divider,1
 
 #####2.10 Change Sensor Calibration Parameter
 Change calibration parameter for each sensor(acceleration, gyroscope and magnetometer). Current settings will be displayed without the CALIBRATION_PARAMETERS.
@@ -425,8 +425,8 @@ Change calibration parameter for each sensor(acceleration, gyroscope and magneto
 
 | Attribute name | Description |
 | ------|------ |
-| sensor | sensor type |
-| param | calibration parameter |
+| sensor | Sensor type |
+| param | Calibration parameter |
 * Example: @calib,A,1.000000e+00,2.000000e+00,3.000000e+00,4.000000e+00,5.000000e+00,6.000000e+00,7.000000e+00,8.000000e+00,9.000000e+00,1.000000e+01,1.100000e+01,1.200000e+01
 
 #####2.11 Change Baud Rate
