@@ -28,6 +28,8 @@
  *      - ver 1.0
  *   - 2015.04.30 ('c')void
  *      - add example 7
+ *   - 2016.01.22 ('c')gnohead
+ *   	- add example 8
  */
 
 #include <stdio.h>
@@ -795,6 +797,76 @@ void ex7_coordinate_transform(const char* serial_device, int baudrate)
 
 /******************************************************************************************************************************
  *
+ *  EXAMPLE 8
+ *
+ ******************************************************************************************************************************/
+
+void ex8_synchronous_read_ascii_in_trigger_mode(const char* serial_device, int baudrate)
+{
+    printf("\n### %s() ###\n", __FUNCTION__);
+
+    MyAhrsPlus sensor;
+    SensorData sensor_data;
+    uint32_t sample_count = 0;
+
+    /*
+     * 	start communication with the myAHRS+.
+     */
+    if(sensor.start(serial_device, baudrate) == false) {
+        handle_error("start() returns false");
+    }
+
+    /*
+     *  set ascii output format
+     *   - select euler angle
+     */
+    if(sensor.cmd_ascii_data_format("RPY") == false) {
+        handle_error("cmd_ascii_data_format() returns false");
+    }
+
+    /*
+     *  set divider
+     *   - output rate(Hz) = max_rate/divider
+     */
+    if(sensor.cmd_divider(DIVIDER) ==false) {
+        handle_error("cmd_divider() returns false");
+    }
+
+    /*
+     *  set transfer mode
+     *   - AT : ASCII Message & Trigger mode
+     */
+    if(sensor.cmd_mode("AT") ==false) {
+        handle_error("cmd_mode() returns false");
+    }
+
+    while(sample_count < 300) {
+    	sensor.cmd_trigger(); // send trigger signal to myAHRS+
+        if(sensor.wait_data() == true) { // waiting for new data
+        	// read counter
+            sample_count = sensor.get_sample_count();
+
+            // copy sensor data
+            sensor.get_data(sensor_data);
+
+            // print euler angle
+            EulerAngle& e = sensor_data.euler_angle;
+            printf("%04d) EulerAngle (roll = %.2f, pitch = %.2f, yaw = %.2f)\n", sample_count, e.roll, e.pitch, e.yaw);
+        }
+    }
+
+    /*
+     * 	stop communication
+     */
+    sensor.stop();
+
+    printf("END OF TEST(%s)\n\n", __FUNCTION__);
+}
+
+
+
+/******************************************************************************************************************************
+ *
  *
  *
  ******************************************************************************************************************************/
@@ -871,6 +943,9 @@ int main(int argc, char* argv[]) {
     case 7:
         ex7_coordinate_transform(serial_device_list[0].c_str(), BAUDRATE);
         break;
+    case 8:
+    	ex8_synchronous_read_ascii_in_trigger_mode(serial_device_list[0].c_str(), BAUDRATE);
+    	break;
     default:
     	handle_error("Invalid example id");
     	break;
