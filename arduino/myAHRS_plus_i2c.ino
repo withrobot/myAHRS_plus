@@ -266,6 +266,6 @@ void loop()
   read_euler();
   read_quat();
 
-  delay(100); //1Hz
+  delay(100); //10Hz
 }
 
