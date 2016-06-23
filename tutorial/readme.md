@@ -143,10 +143,10 @@ I2C interface of the myAHRS+ supports four sequences shown below.
 
 Register Name | Attributes | Address | Dafault value | Description
 ------|------|------|---------- | ----------------
-WHO_AM_I | R | 0x01 | 0xB1 | Sensor status
+WHO_AM_I | R | 0x01 | 0xB1 |  -
 REV_ID_MAJOR | R | 0x02 | - | -
 REV_ID_MINOR | R | 0x03 | - | -
-STATUS | R |  0x04  | 0x80 | - 
+STATUS | R |  0x04  | 0x80 | Sensor status 
 I_ACC_X_LOW | R | 0x10 | DATA | Acceleration raw data
 I_ACC_X_HIGH | R | 0x11 | DATA | Acceleration raw data
 I_ACC_Y_LOW | R | 0x12 | DATA | Acceleration raw data
