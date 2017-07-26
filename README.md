@@ -30,9 +30,6 @@ Detailed description is [here](tutorial).
 ## Software - myAHRS+ Monitor V1.02
 * [myAHRS+ Monitor V1.02](Software)
 
-## User Manual
-* [myAHRS+ User Manual](myAHRS+ user manual.pdf)
-
 ## Examples
 
 * [myAHRS+ SDK](common_cpp)
