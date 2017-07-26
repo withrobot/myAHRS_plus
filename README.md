@@ -28,9 +28,10 @@ Performance comparison between myAHRS+ and MPU9150 MotionFit.
 Detailed description is [here](tutorial).
 
 ## Software - myAHRS+ Monitor V1.02
+* [myAHRS+ Monitor V1.02](Software/myAHRSplus_Monitor_v1.02 Setup.msi)
 
 ## User Manual
-
+* [myAHRS+ User Manual](myAHRS+ user manual.pdf)
 
 ## Examples
 
