@@ -101,7 +101,7 @@ To update the myAHRS+ settings(properties), run myAHRS+ Monitor. And then open t
 
 This video shows the setting procedure of myAHRS+ using myAHRS+ Monitor. 
 
-[![ScreenShot](images/wiki_image_4_configuration.png)](http://www.youtube.com/watch?v=oncxaqOTxWY)
+[![ScreenShot](images/wiki_image_4_configuration.png)](https://youtu.be/VH0rL51dFvU)
 
 
 
