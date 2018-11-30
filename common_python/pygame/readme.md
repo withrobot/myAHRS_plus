@@ -21,7 +21,7 @@ It is assumed that your myAHRS+ is connected to /dev/ttyACM0(linux) or COM1(wind
 
 ### shooting
 ![ScreenShot](../images/pygame_shooting.png)
-[![ScreenShot](../images/raspberry_pygame_shooting.gif)](https://youtu.be/OJmiVEsdxbU )
+[![ScreenShot](../images/raspberry_pygame_shooting.gif)](https://youtu.be/zkrVU23q15M)
 
 * Fire : Space key 
 * Exit : Escape key 
