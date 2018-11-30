@@ -76,7 +76,7 @@ First, connect myAHRS+ to your PC via USB. And then, check LEDs on myAHRS+. The 
 
 The following video shows the tesing procedure of myAHRS+ using GUI(myAHRS+ Monitor). 
 
-[![ScreenShot](images/wiki_image_4_myahrs_monitor.png)](http://www.youtube.com/watch?v=bKS9wkH7ghY)
+[![ScreenShot](images/wiki_image_4_myahrs_monitor.png)](https://youtu.be/2tBPklZr4_8)
 
 
 # Configuration
