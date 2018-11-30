@@ -36,7 +36,7 @@ It is assumed that your myAHRS+ is connected to /dev/ttyACM0.
 
 ### Hello Triangle 
 
-[![ScreenShot](../../images/raspberry_opengle.gif)](https://youtu.be/Imx7qpON-3Y)
+[![ScreenShot](../../images/raspberry_opengle.gif)](https://youtu.be/BQetZbPnTqc)
 
 This is the simplest example displays the cube that rotates along with the movement of the myAHRS+. 
 You can run this example as follows.
