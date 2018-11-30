@@ -359,8 +359,9 @@ Select output data message format (ASCII_FORMAT), when you specify the data mess
 | RPY | Sensor attitude output in EULER |
 | QUAT | Sensor attitude output in quaternion |
 | RPYIMU | RPY + IMU |
-| QUATIMU | QUAT + IMU |<br/>
-Run command without the parameters will display the current settings. The details for each format will be described in chapter 3 data message.
+| QUATIMU | QUAT + IMU | <br/>
+
+* Run command without the parameters will display the current settings. The details for each format will be described in chapter 3 data message.
 * Request: @asc_out,ASCII_FORMAT
 * Response: ~asc_out,OK,fmt=ASCII_FORMAT
 * Attribute
