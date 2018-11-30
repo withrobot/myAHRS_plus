@@ -114,7 +114,7 @@ Measurement of magnetic field will be subjected to distortion. There are two cat
 
 This video shows the calibration procedure of myAHRS+ using myAHRS+ Monitor.
 
-[![ScreenShot](images/wiki_imge_4_calibration.png)](http://www.youtube.com/watch?v=dX0QgiJZKYs)
+[![ScreenShot](images/wiki_imge_4_calibration.png)](https://youtu.be/d_jPEczPehw)
 
 
 # I2C Interface 
