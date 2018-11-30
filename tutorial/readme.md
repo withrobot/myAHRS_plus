@@ -359,7 +359,7 @@ Select output data message format (ASCII_FORMAT), when you specify the data mess
 | RPY | Sensor attitude output in EULER |
 | QUAT | Sensor attitude output in quaternion |
 | RPYIMU | RPY + IMU |
-| QUATIMU | QUAT + IMU |</br>
+| QUATIMU | QUAT + IMU |<br/>
 Run command without the parameters will display the current settings. The details for each format will be described in chapter 3 data message.
 * Request: @asc_out,ASCII_FORMAT
 * Response: ~asc_out,OK,fmt=ASCII_FORMAT
@@ -459,7 +459,7 @@ Set every setting to default (factory setting) value.
 * Request: @factory
 * Response: ~factory,OK
 
-###3. Data Message
+### 3. Data Message
 ##### 3.1 ASCII Format Message
 * RIIMU
  * Format: $RIIMU,sequence number,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z, magnet_x,magnet_y,magnet_z,temperature
