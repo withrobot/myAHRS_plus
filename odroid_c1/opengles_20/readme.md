@@ -35,7 +35,7 @@ It is assumed that your myAHRS+ is connected to /dev/ttyACM0.
 
 ### Cube 
 
-[![ScreenShot](images/cube.gif)](http://youtu.be/5uFRkzdCaqo?list=UUr3H8wg38P8b4skZZi_tpYA)
+[![ScreenShot](images/cube.gif)](https://youtu.be/BRO0Viauv7Q)
 
 This is the simplest example displays the cube that rotates along with the movement of the myAHRS+. 
 You can run this example as follows.
