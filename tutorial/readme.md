@@ -119,7 +119,7 @@ This video shows the calibration procedure of myAHRS+ using myAHRS+ Monitor.
 
 # I2C Interface 
 
-###1. I2C Interface
+### 1. I2C Interface
 
 The myAHRS+ operates as I2C slave and the I2C bus requires the pull-up resistor.<br/>
 Normally 4.7kΩ resistor is used but 1kΩ ~ 10kΩ resistor can be used depends on the situation.
@@ -139,7 +139,7 @@ I2C interface of the myAHRS+ supports four sequences shown below.
 ![ScreenShot](images/wiki_image_5_I2C_sequence.JPG)
 
 
-###2. I2C Register description
+### 2. I2C Register description
 
 Register Name | Attributes | Address | Dafault value | Description
 ------|------|------|---------- | ----------------
@@ -200,7 +200,7 @@ QUATERNION_Z_HIGH | R | 0x41 | DATA | Quaternion
 QUATERNION_W_LOW | R | 0x42 | DATA | Quaternion
 QUATERNION_W_HIGH | R | 0x43 | DATA | Quaternion
 
-###3. Data transform formula
+### 3. Data transform formula
 
 * I_ACC_X_LOW ~ I_MAGNET_Z_HIGH
  * These registers store the sensor output value that is not compensated by the calibration parameter. Lower 8bit is saved in a LOW register and higher 8bit register is saved in a HIGH register. Since the value is originally Integer, there is no need to convert it into a Real number.
@@ -236,7 +236,7 @@ QUATERNION_W_HIGH | R | 0x43 | DATA | Quaternion
 Describes the details of various messages used for communicating with myAHRS+ using serial port (USB/UART).<br/>
 This will help you getting the sensor data and changing the settings.
 
-###1. Message frame definition
+### 1. Message frame definition
 myAHRS+ message format
 
 Header | Function
@@ -280,10 +280,10 @@ Example of command & response
 * Version request: “@version*3A”
 * Version request: “~version,OK,product=myAHRS+,platform=myAHRS+m3,sn=464432970808430886,ver=1.6,build=Jul 24 2014 12:07:01*6F”
 
-###2. Command & Response Message Details
+### 2. Command & Response Message Details
 For the convenience of explanation, CRC field (“*XX”) and frame end (\r\n) are omitted in command examples.
 
-#####2.1 Firmware Version
+##### 2.1 Firmware Version
 Requests common information such as the product name, firmware version, sensor serial number and so on…
 * Request: @version
 * Response: ~version,OK,product=myAHRS+,platform=myAHRS+m3,sn=464432970808430886,ver=1.5,build=Jul 13 2014 22:50:17
@@ -297,7 +297,7 @@ Requests common information such as the product name, firmware version, sensor s
 | ver | Firmware version |
 | build | Build date |
 
-#####2.2 Sensor Serial Number
+##### 2.2 Sensor Serial Number
 * Request: @sn
 * Response: ~sn,OK,sn=sensor serial number
 * Attribute
@@ -306,7 +306,7 @@ Requests common information such as the product name, firmware version, sensor s
 | ------|------ |
 | sn | Sensor serial number |
 
-#####2.3 Sensor ID
+##### 2.3 Sensor ID
 A sensor ID user can set. When using multiple sensors, using sensor and PC communication port (COM3 for example) as a sensor distinguisher is difficult so, sensor ID is used.<br/>
 Available sensor ID range is 0~65535 and when the command executes without the parameter (ID), the output is the current set ID.
 * Request: @id,ID
@@ -317,7 +317,7 @@ Available sensor ID range is 0~65535 and when the command executes without the p
 | ------|------ |
 | id | Sensor ID |
 
-#####2.4 Sensor Sensitivity
+##### 2.4 Sensor Sensitivity
 The measuring range and sensitivity output of Accelerometer/Gyro Sensor.
 * Request: @sensitivity
 * Response: ~sensitivity,OK,acc range=16,gyro range=2000,acc sensitivity=4.882813e-04,gyro sensitivity=6.097561e-02
@@ -330,7 +330,7 @@ The measuring range and sensitivity output of Accelerometer/Gyro Sensor.
 | acc_sensitivity | Accelerometer sensitivity(g/LSB) |
 | gyro_sensitivity | Gyroscope sensitivity(dps/LSB) |
 
-#####2.5 Data Output Mode
+##### 2.5 Data Output Mode
 Select output mode for sensor message format and output type.
 * ‘A’: Set ASCII format for data message
 * ‘B’: Set BINARY format for data message
@@ -349,7 +349,7 @@ If you specify the data message in BINARY form, you may take the difficult in pr
 | mode | Output mode |
 * Example: ASCII format & Continuous output => @mode,AC
 
-#####2.6 Data Output format(ASCII) setting
+##### 2.6 Data Output format(ASCII) setting
 Select output data message format (ASCII_FORMAT), when you specify the data message output mode in ASCII format. Supported message formats are listed below.
 
 | Message Type | Description |
@@ -359,7 +359,7 @@ Select output data message format (ASCII_FORMAT), when you specify the data mess
 | RPY | Sensor attitude output in EULER |
 | QUAT | Sensor attitude output in quaternion |
 | RPYIMU | RPY + IMU |
-| QUATIMU | QUAT + IMU |
+| QUATIMU | QUAT + IMU |</br>
 Run command without the parameters will display the current settings. The details for each format will be described in chapter 3 data message.
 * Request: @asc_out,ASCII_FORMAT
 * Response: ~asc_out,OK,fmt=ASCII_FORMAT
@@ -370,7 +370,7 @@ Run command without the parameters will display the current settings. The detail
 | fmt | Message format name |
 * Example: To display quaternion & IMU data => @asc_out,QUATIMU
 
-#####2.7 Data Output format(BINARY) setting
+##### 2.7 Data Output format(BINARY) setting
 Select data output when the data output mode is in BINARY format.
 * Attitude
  * EULER: EULER angle output
@@ -392,12 +392,12 @@ If you specify the data message in BINARY form, you may take the difficult in pr
  * @bin out,EULER RIIMU: Display EULER angle and uncompensated sensor value
  * @bin out,IMU: Display compensated sensor value only
 
-#####2.8 Data Request
+##### 2.8 Data Request
 A sensor data request command when the data output mode is in trigger mode. Data message output instead of the command response. Error response will return when it is in continuous mode.
 * Request: @trig
 * Response: None
 
-#####2.9 Data Output Rate Setting
+##### 2.9 Data Output Rate Setting
 Data output rate setting when the data message output mode is in continuous mode.<br/>
 Output rate will be determined by dividing the sensor maximum output frequency with the user input divider. Let’s say the maximum output frequency is 100 Hz and the divider is 5, the data output frequency is 20 Hz. For the response for this command, the user input divider and the maximum output frequency will be displayed.<br/>
 Run command without the parameters, current settings will be displayed.
@@ -411,7 +411,7 @@ Run command without the parameters, current settings will be displayed.
 | max_rate | Maximum output frequency |
 * Example: Set divider 1 => @divider,1
 
-#####2.10 Change Sensor Calibration Parameter
+##### 2.10 Change Sensor Calibration Parameter
 Change calibration parameter for each sensor(acceleration, gyroscope and magnetometer). Current settings will be displayed without the CALIBRATION_PARAMETERS.
 * Request: @calib, SENSOR TYPE, CALIBRATION PARAMETERS
 * SENSOR_TYPE
@@ -429,7 +429,7 @@ Change calibration parameter for each sensor(acceleration, gyroscope and magneto
 | param | Calibration parameter |
 * Example: @calib,A,1.000000e+00,2.000000e+00,3.000000e+00,4.000000e+00,5.000000e+00,6.000000e+00,7.000000e+00,8.000000e+00,9.000000e+00,1.000000e+01,1.100000e+01,1.200000e+01
 
-#####2.11 Change Baud Rate
+##### 2.11 Change Baud Rate
 Change UART interface baud-rate. myAHRS+ supports the baud-rates listed below.
 * 9600, 14400, 19200, 38400, 57600, 115200, 230400, 460800
 
@@ -443,7 +443,7 @@ When it receives the baud-rate change command, it sends the response and changes
 | baudrate | Baudrate |
 * Example: Set baud-rate 115200 bps => @baudrate,115200
 
-#####2.12 Save User Setting
+##### 2.12 Save User Setting
 NVRAM storable user settings are listed below.
 * Sensor ID
 * UART Baudrate
@@ -454,13 +454,13 @@ Other than listed above settings will not be saved in NVRAM, so you need to set 
 * Request: @save
 * Response: ~save,OK
 
-#####2.13 Factory Setting
+##### 2.13 Factory Setting
 Set every setting to default (factory setting) value.
 * Request: @factory
 * Response: ~factory,OK
 
 ###3. Data Message
-#####3.1 ASCII Format Message
+##### 3.1 ASCII Format Message
 * RIIMU
  * Format: $RIIMU,sequence number,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z, magnet_x,magnet_y,magnet_z,temperature
  * Example: $RIIMU,27,25,26,-1901,-16,-7,-11,259,-147,55,158
@@ -480,7 +480,7 @@ Set every setting to default (factory setting) value.
  * Format: $QUATIMU,sequence number,x,y,z,w,accel_x,accel_y,accel_z,gyro_x,gyro_y,gyro_z, magnet_x,magnet_y,magnet_z,temperature
  * Example: $QUATIMU,02,-0.0039,0.0135,0.2940,0.9557,0.0238,0.0034,-0.9978,-0.0448,-0.0896,0.2866,136.5006,-86.5058,134.0961,35.8
 
-#####3.2 BINARY Format Message
+##### 3.2 BINARY Format Message
 If you specify the data message in BINARY form, you may take the difficult in protocol processing implementation.<br/>
 So, if you need to analyze the data message directly not using myAHRS+ SDK, we recommend you ASCII format for the data message in this case.<br/>
 With myAHRS+ SDK, user does not need to implement sensor data message interpretation, we omit the details on this in user’s guide.
