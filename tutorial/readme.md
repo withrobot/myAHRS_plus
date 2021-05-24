@@ -243,7 +243,7 @@ Header | Function
 ------|------
 @,~,$ | Start of Communication Frame
 \r\n | End of Communication Frame
-* | CRC delimeter
+\* | CRC delimeter
 
 Request message
 * A message from the Host(PC) to the sensor
